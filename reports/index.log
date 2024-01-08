@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+### 2.7 &nbsp; &nbsp; | &nbsp; &nbsp; Dashboard
+
+To widely disseminate the challenge results, a web-based dashboard was developed (Figure 2, https://rrsg2020.dashboards.neurolibre.org). The landing page (Figure 2-a) showcases the relationship between the phantom and brain datasets acquired at different sites/vendors. Selecting the Phantom or In Vivo icons and then clicking an ROI will display whisker plots for that region. Additional sections of the dashboard allow for displaying statistics summaries for both sets of data, a magnitude vs complex data fitting comparison, and hierarchical shift function analyses.
+
+------------------
+
+[0;36m  Cell [0;32mIn[2], line 3[0;36m[0m
+[0;31m    To widely disseminate the challenge results, a web-based dashboard was developed (Figure 2, https://rrsg2020.dashboards.neurolibre.org). The landing page (Figure 2-a) showcases the relationship between the phantom and brain datasets acquired at different sites/vendors. Selecting the Phantom or In Vivo icons and then clicking an ROI will display whisker plots for that region. Additional sections of the dashboard allow for displaying statistics summaries for both sets of data, a magnitude vs complex data fitting comparison, and hierarchical shift function analyses.[0m
+[0m       ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+
+SyntaxError: invalid syntax (851234057.py, line 3)
+
