@@ -1,0 +1,685 @@
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+
+from os import path
+import os
+# Imports
+import warnings
+warnings.filterwarnings("ignore")
+
+if build == 'latest':
+    if path.isdir('analysis')== False:
+        !git clone https://github.com/rrsg2020/analysis.git
+        dir_name = 'analysis'
+        analysis = os.listdir(dir_name)
+
+        for item in analysis:
+            if item.endswith(".ipynb"):
+                os.remove(os.path.join(dir_name, item))
+            if item.endswith(".md"):
+                os.remove(os.path.join(dir_name, item))
+elif build == 'archive':
+    if os.path.isdir(Path('../../data')):
+        data_path = ['../../data/rrsg-2020-neurolibre']
+    else:
+        # define data requirement path
+        data_req_path = os.path.join("..", "binder", "data_requirement.json")
+        # download data
+        repo2data = Repo2Data(data_req_path)
+        data_path = repo2data.install()
+
+# Imports
+import warnings
+warnings.filterwarnings("ignore")
+
+from pathlib import Path
+import pandas as pd
+import json
+import nibabel as nib
+import numpy as np
+
+from analysis.src.database import *
+from analysis.src.nist import get_reference_NIST_values, get_NIST_ids
+from analysis.src.tools import calc_error
+from analysis.src.nist import temperature_correction
+
+import matplotlib.pyplot as plt
+plt.style.use('analysis/custom_matplotlibrc')
+plt.rcParams["figure.figsize"] = (10,10)
+fig_id = 0
+
+if build == 'latest':
+    database_path = Path('analysis/databases/3T_NIST_T1maps_database.pkl')
+    output_folder = Path("analysis/plots/03_singledataset_scatter_NIST-temperature-corrected/")
+elif build=='archive':
+    database_path = Path(data_path[0] + '/analysis/databases/3T_NIST_T1maps_database.pkl')
+    output_folder = Path(data_path[0] + '/analysis/plots/03_singledataset_scatter_NIST-temperature-corrected/')
+
+estimate_type = 'mean' # median or mean
+
+## Define Functions
+def plot_single_scatter(x, y, y_std,
+                        title, x_label, y_label,
+                        file_prefix, folder_path, fig_id,
+                        y_type='linear'):
+    if y_type is 'linear':
+        plt.errorbar(x,y, y_std, fmt='o', solid_capstyle='projecting')
+        ax = plt.gca()
+        ax.axline((1, 1), slope=1, linestyle='dashed')
+        ax.set_ylim(ymin=0, ymax=2500)
+        ax.set_xlim(xmin=0, xmax=2500)
+    if y_type is 'log':
+        plt.loglog(x,y,'o')
+        ax = plt.gca()
+        ax.set_ylim(ymin=20, ymax=2500)
+        ax.set_xlim(xmin=20, xmax=2500)
+    if y_type is 'error_t1':
+        plt.errorbar(x,calc_error(x,y), fmt='o')
+        ax = plt.gca()
+        ax.axline((1, 0), slope=0, color='k')
+        ax.axline((1, -10), slope=0, linestyle='dashed', color='k')
+        ax.axline((1, 10), slope=0, linestyle='dashed', color='k')
+        ax.set_ylim(ymin=-100, ymax=100)
+        ax.set_xlim(xmin=0, xmax=2500)
+
+
+    
+    plt.title(title)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+
+    fig = plt.gcf()
+    
+
+    folder_path.mkdir(parents=True, exist_ok=True)
+
+    if fig_id<10:
+        filename = "0" + str(fig_id) + "_" + file_prefix
+    else:
+        filename = str(fig_id) + "_" + file_prefix
+
+    fig.savefig(folder_path / (str(filename) + '.svg'), facecolor='white')
+    fig.savefig(folder_path / (str(filename) + '.png'), facecolor='white')
+    fig_id = fig_id + 1
+    plt.show()
+    return fig_id
+
+## Load database
+
+df = pd.read_pickle(database_path)
+
+## Initialize array
+
+dataset_estimate = np.array([])
+dataset_std = np.array([])
+
+index = 6.001
+
+serial_number = df.loc[index]['phantom serial number']
+
+
+for key in get_NIST_ids():
+    if estimate_type == 'mean':
+        dataset_estimate = np.append(dataset_estimate, np.mean(df.loc[index][key]))
+    elif estimate_type == 'median':
+        dataset_estimate = np.append(dataset_estimate, np.median(df.loc[index][key]))
+    else:
+        Exception('Unsupported dataset estimate type.')
+
+    dataset_std = np.append(dataset_std, np.std(df.loc[index][key]))
+
+ref_values = get_reference_NIST_values(serial_number)
+
+temperature = df.loc[index]['phantom temperature']
+temp_corrected_ref_values = temperature_correction(temperature, serial_number)
+
+
+# PYTHON CODE
+# Module imports
+
+import matplotlib.pyplot as plt
+from PIL import Image
+from matplotlib.image import imread
+import scipy.io
+import plotly.graph_objs as go
+import numpy as np
+from plotly import __version__
+from plotly.offline import init_notebook_mode, iplot, plot
+config={'showLink': False, 'displayModeBar': False}
+
+init_notebook_mode(connected=True)
+
+from IPython.display import display, HTML
+
+import os
+import markdown
+import random
+from scipy.integrate import quad
+
+import warnings
+warnings.filterwarnings('ignore')
+config={'showLink': False, 'displayModeBar': False}
+
+lin_line = go.Scatter(
+    x=np.linspace(0,2500),
+    y=np.linspace(0,2500),
+    name="slope",
+    line_shape='linear',
+    line={'dash': 'dash','color': 'black'},
+    visible = True,
+    showlegend = False
+)
+
+data_lin=go.Scatter(
+    x=temp_corrected_ref_values,
+    y=dataset_estimate,
+    error_y=dict(
+        type='data', # value of error bar given in data coordinates
+        array=dataset_std,
+        visible=True),
+    name = 'id: '+ str(index),
+    mode = 'markers',
+    marker=dict(color='#007ea7'),
+    visible = True,
+    showlegend = False,
+    )
+
+data_log=go.Scatter(
+    x=temp_corrected_ref_values,
+    y=dataset_estimate,
+    name = 'id: '+ str(index),
+    mode = 'markers',
+    marker=dict(color='#007ea7'),
+    visible = True,
+    showlegend = False
+    )
+data_error=go.Scatter(
+    x=temp_corrected_ref_values,
+    y= calc_error(temp_corrected_ref_values,dataset_estimate),
+    name = 'id: '+ str(index),
+    mode = 'markers',
+    marker=dict(color='#007ea7'),
+    visible = True,
+    showlegend = False
+    )
+err_solid_line = go.Scatter(
+    x=np.linspace(0,2500),
+    y=np.linspace(0,2500)*0,
+    name="0 % error line",
+    line_shape='linear',
+    line={'dash': 'solid','color': 'black'},
+    visible = True,
+    showlegend = False
+)
+err_p10_line = go.Scatter(
+    x=np.linspace(0,2500),
+    y=np.linspace(0,2500)*0+10,
+    name="+10% error",
+    line_shape='linear',
+    line={'dash': 'dash','color': 'black'},
+    visible = True,
+    showlegend = False
+)
+err_m10_line = go.Scatter(
+    x=np.linspace(0,2500),
+    y=np.linspace(0,2500)*0-10,
+    name="-10% error",
+    line_shape='linear',
+    line={'dash': 'dash','color': 'black'},
+    visible = True,
+    showlegend = False
+)
+
+data = [lin_line, data_lin, data_log, data_error, err_solid_line, err_p10_line, err_m10_line]
+
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+
+fig = make_subplots(rows=2, cols=3, horizontal_spacing = 0.08)
+
+fig.add_trace(
+    lin_line,
+    row=1, col=1
+)
+
+fig.add_trace(
+    data_lin,
+    row=1, col=1
+)
+
+fig.add_trace(
+    data_log,
+    row=1, col=2
+)
+
+fig.add_trace(
+    data_error,
+    row=1, col=3
+)
+
+fig.add_trace(
+    err_solid_line,
+    row=1, col=3
+)
+
+fig.add_trace(
+    err_p10_line,
+    row=1, col=3
+)
+
+fig.add_trace(
+    err_m10_line,
+    row=1, col=3
+)
+
+output_folder = Path("analysis/plots/04_alldatasets_scatter_NIST-temperature-corrected/")
+
+## Initialize array
+
+dataset_mean = np.zeros((1,14))
+dataset_std = np.zeros((1,14))
+version = np.array([])
+temperature = np.array([])
+ref_values = np.zeros((1,14))
+
+
+ii=0
+for index, row in df.iterrows():
+    if type(df.loc[index]['T1 - NIST sphere 1']) is np.ndarray:
+
+        version = np.append(version,df.loc[index]['phantom serial number'])
+        temperature = np.append(temperature, df.loc[index]['phantom temperature'])
+
+
+        if version[ii] is None:
+            version[ii] = 999 # Missing version, only known case is one where we have version > 42 right now.
+        
+        if temperature[ii] is None:
+            temperature[ii] = 20 # Missing temperature, assume it to be 20C (reference temperature).
+            
+            
+        if ii==0:
+            ref_values = get_reference_NIST_values(version[ii])
+            temp_corrected_ref_values = temperature_correction(temperature[ii], version[ii])
+        else:
+            ref_values = np.vstack((ref_values, get_reference_NIST_values(version[ii])))
+            temp_corrected_ref_values = np.vstack((temp_corrected_ref_values, temperature_correction(temperature[ii], version[ii])))
+        
+        tmp_dataset_estimate = np.array([])
+        tmp_dataset_std = np.array([])
+
+        for key in get_NIST_ids():
+            if estimate_type is 'mean':
+                tmp_dataset_estimate = np.append(tmp_dataset_estimate, np.mean(df.loc[index][key]))
+            elif estimate_type is 'median':
+                tmp_dataset_estimate = np.append(tmp_dataset_estimate, np.median(df.loc[index][key]))
+            else:
+                Exception('Unsupported dataset estimate type.')
+
+            tmp_dataset_std = np.append(tmp_dataset_std, np.std(df.loc[index][key]))
+
+        if ii==0:
+            dataset_estimate = tmp_dataset_estimate  
+            dataset_std = tmp_dataset_std
+        else:
+            dataset_estimate = np.vstack((dataset_estimate, tmp_dataset_estimate))
+            dataset_std = np.vstack((dataset_std, tmp_dataset_std))
+
+        ii=ii+1
+
+## Setup for plots
+fig_id = 0
+dims=ref_values.shape
+file_prefix = 'alldatasets'
+
+fig.add_trace(
+    lin_line,
+    row=2, col=1
+)
+
+for ii in range(dims[0]):
+    data_lin=go.Scatter(
+        x=temp_corrected_ref_values[ii,:],
+        y=dataset_estimate[ii,:],
+        error_y=dict(
+            type='data', # value of error bar given in data coordinates
+            array=dataset_std[ii,:],
+            visible=True),
+        name = 'id: '+ str(df.index[ii]),
+        mode = 'markers',
+        visible = True,
+        showlegend = False,
+        )
+
+    fig.add_trace(
+        data_lin,
+        row=2, col=1
+    )
+
+
+for ii in range(dims[0]):
+    data_log=go.Scatter(
+        x=temp_corrected_ref_values[ii,:],
+        y=dataset_estimate[ii,:],
+        name = 'id: '+ str(df.index[ii]),
+        mode = 'markers',
+        visible = True,
+        showlegend = False
+        )
+
+    fig.add_trace(
+        data_log,
+        row=2, col=2
+    )
+
+for ii in range(dims[0]):
+    data_error=go.Scatter(
+        x=temp_corrected_ref_values[ii,:],
+        y= calc_error(temp_corrected_ref_values[ii,:],dataset_estimate[ii,:]),
+        name = 'id: '+ str(df.index[ii]),
+        mode = 'markers',
+        visible = True,
+        showlegend = False
+        )
+
+    fig.add_trace(
+        data_error,
+        row=2, col=3
+    )
+
+fig.add_trace(
+    err_solid_line,
+    row=2, col=3
+)
+
+fig.add_trace(
+    err_p10_line,
+    row=2, col=3
+)
+
+fig.add_trace(
+    err_m10_line,
+    row=2, col=3
+)
+
+fig.update_xaxes(
+    type="linear",
+    range=[0,2500],
+    title='Reference T<sub>1</sub> (ms)',
+    showgrid=True,
+    gridcolor='rgb(169,169,169)',
+    tick0 = 0,
+    dtick = 500,
+    linecolor='black',
+    linewidth=2,
+    row=1, col=1
+    )
+fig.update_yaxes(
+    type="linear",
+    range=[0,2500],
+    title={
+        'text':'T<sub>1</sub> estimate (ms)',
+        'standoff':0
+        },
+    showgrid=True,
+    tick0 = 0,
+    dtick = 500,
+    gridcolor='rgb(169,169,169)',
+    linecolor='black',
+    linewidth=2,
+    row=1, col=1
+    )
+
+fig.update_xaxes(
+    type="log",
+    range=[np.log10(20),np.log10(2500)],
+    title='Reference T<sub>1</sub> (ms)',
+    showgrid=True,
+    gridcolor='rgb(169,169,169)',
+    minor=dict(ticks="inside", ticklen=6, showgrid=True),
+    linecolor='black',
+    linewidth=2,
+    row=1, col=2
+    )
+fig.update_yaxes(
+    type="log",
+    range=[np.log10(20),np.log10(2500)],
+    title={
+        'text':'T<sub>1</sub> estimate (ms)',
+        'standoff':0
+        },
+    showgrid=True,
+    gridcolor='rgb(169,169,169)',
+    minor=dict(ticks="inside", ticklen=6, showgrid=True),
+    linecolor='black',
+    linewidth=2,
+    row=1, col=2)
+
+fig.update_xaxes(
+    type="linear",
+    range=[0,2500],
+    title='Reference T<sub>1</sub> (ms)',
+    showgrid=True,
+    gridcolor='rgb(169,169,169)',
+    tick0 = 0,
+    dtick = 500,
+    linecolor='black',
+    linewidth=2,
+    row=1, col=3)
+
+fig.update_yaxes(
+    type="linear",
+    range=[-100,100],
+    title={
+        'text':'Error (%)',
+        'standoff':0
+        },
+    showgrid=True,
+    gridcolor='rgb(169,169,169)',
+    tick0 = -100,
+    dtick = 25,
+    linecolor='black',
+    linewidth=2,
+    row=1, col=3
+    )
+
+
+fig.update_xaxes(
+    type="linear",
+    range=[0,2500],
+    title='Reference T<sub>1</sub> (ms)',
+    showgrid=True,
+    gridcolor='rgb(169,169,169)',
+    tick0 = 0,
+    dtick = 500,
+    linecolor='black',
+    linewidth=2,
+    row=2, col=1
+    )
+fig.update_yaxes(
+    type="linear",
+    range=[0,2500],
+    title={
+        'text':'T<sub>1</sub> estimate (ms)',
+        'standoff':0
+        },
+    showgrid=True,
+    gridcolor='rgb(169,169,169)',
+    tick0 = 0,
+    dtick = 500,
+    linecolor='black',
+    linewidth=2,
+    row=2, col=1
+    )
+
+fig.update_xaxes(
+    type="log",
+    range=[np.log10(20),np.log10(2500)],
+    title='Reference T<sub>1</sub> (ms)',
+    showgrid=True,
+    gridcolor='rgb(169,169,169)',
+    minor=dict(ticks="inside", ticklen=6, showgrid=True),
+    linecolor='black',
+    linewidth=2,
+    row=2, col=2
+    )
+fig.update_yaxes(
+    type="log",
+    range=[np.log10(20),np.log10(2500)],
+    title={
+        'text':'T<sub>1</sub> estimate (ms)',
+        'standoff':0
+        },
+    showgrid=True,
+    gridcolor='rgb(169,169,169)',
+    minor=dict(ticks="inside", ticklen=6, showgrid=True),
+    linecolor='black',
+    linewidth=2,
+    row=2, col=2)
+
+fig.update_xaxes(
+    type="linear",
+    range=[0,2500],
+    title='Reference T<sub>1</sub> (ms)',
+    showgrid=True,
+    gridcolor='rgb(169,169,169)',
+    tick0 = 0,
+    dtick = 500,
+    linecolor='black',
+    linewidth=2,
+    row=2, col=3)
+
+fig.update_yaxes(
+    type="linear",
+    range=[-100,100],
+    title={
+        'text':'Error (%)',
+        'standoff':0
+        },
+    showgrid=True,
+    gridcolor='rgb(169,169,169)',
+    tick0 = -100,
+    dtick = 25,
+    linecolor='black',
+    linewidth=2,
+    row=2, col=3,
+    )
+
+fig.update_layout(
+    margin=dict(l=30, r=30, t=10, b=30),
+    paper_bgcolor='rgb(255, 255, 255)',
+    plot_bgcolor='rgb(255, 255, 255)',
+    legend_title="",
+    annotations=[
+        dict(
+            x=-0.05,
+            y=0.53,
+            showarrow=False,
+            text='<b>a</b>',
+            font=dict(
+                family='Times New Roman',
+                size=48
+            ),
+            xref='paper',
+            yref='paper'
+        ),
+        dict(
+            x=0.32,
+            y=0.53,
+            showarrow=False,
+            text='<b>b</b>',
+            font=dict(
+                family='Times New Roman',
+                size=48
+            ),
+            xref='paper',
+            yref='paper'
+        ),
+        dict(
+            x=0.7,
+            y=0.53,
+            showarrow=False,
+            text='<b>c</b>',
+            font=dict(
+                family='Times New Roman',
+                size=48
+            ),
+            xref='paper',
+            yref='paper'
+        ),
+        dict(
+            x=-0.05,
+            y=-0.11,
+            showarrow=False,
+            text='<b>d</b>',
+            font=dict(
+                family='Times New Roman',
+                size=48
+            ),
+            xref='paper',
+            yref='paper'
+        ),
+        dict(
+            x=0.32,
+            y=-0.11,
+            showarrow=False,
+            text='<b>e</b>',
+            font=dict(
+                family='Times New Roman',
+                size=48
+            ),
+            xref='paper',
+            yref='paper'
+        ),
+        dict(
+            x=0.7,
+            y=-0.11,
+            showarrow=False,
+            text='<b>f</b>',
+            font=dict(
+                family='Times New Roman',
+                size=48
+            ),
+            xref='paper',
+            yref='paper'
+        ),
+        ]
+    )
+
+fig.update_layout(height=600, width=960)
+
+#iplot(fig, filename = 'figure3', config = config)
+plot(fig, filename = 'figure3.html', config = config)
+display(HTML('figure3.html'))
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[2], line 19[0m
+[1;32m     17[0m                 os[38;5;241m.[39mremove(os[38;5;241m.[39mpath[38;5;241m.[39mjoin(dir_name, item))
+[1;32m     18[0m [38;5;28;01melif[39;00m build [38;5;241m==[39m [38;5;124m'[39m[38;5;124marchive[39m[38;5;124m'[39m:
+[0;32m---> 19[0m     [38;5;28;01mif[39;00m os[38;5;241m.[39mpath[38;5;241m.[39misdir([43mPath[49m([38;5;124m'[39m[38;5;124m../../data[39m[38;5;124m'[39m)):
+[1;32m     20[0m         data_path [38;5;241m=[39m [[38;5;124m'[39m[38;5;124m../../data/rrsg-2020-neurolibre[39m[38;5;124m'[39m]
+[1;32m     21[0m     [38;5;28;01melse[39;00m:
+[1;32m     22[0m         [38;5;66;03m# define data requirement path[39;00m
+
+[0;31mNameError[0m: name 'Path' is not defined
+NameError: name 'Path' is not defined
+
