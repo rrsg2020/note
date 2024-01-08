@@ -385,7 +385,13 @@ A PDF is not enough: Crowdsourcing the T<sub>1</sub> mapping common ground via t
 <p>Figure 4 d-f displays the scatter plot data for human datasets submitted to this challenge, showing mean and standard deviation T1 values from the WM (genu and splenium) and GM (cerebral cortex and deep GM) ROIs. Mean WM T1 values across all submissions were 828 ± 38 ms in the genu and 852 ± 49 ms in the splenium, and mean GM T1 values were 1548 ± 156 ms in the cortex and 1188 ± 133 ms in the deep GM, with less variations overall in WM compared to GM, possibly due to better ROI placement and less partial voluming in WM. The lower standard deviations for the ROIs of human database ID site 9 (submission 18, Figure 1) are due to good slice positioning, cutting through the AC-PC line and the genu for proper ROI placement, particularly for the corpus callosum and deep GM.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="k">if</span> <span class="n">build</span> <span class="o">==</span> <span class="s1">&#39;latest&#39;</span><span class="p">:</span>
@@ -534,23 +540,22 @@ A PDF is not enough: Crowdsourcing the T<sub>1</sub> mapping common ground via t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:99: SyntaxWarning: &quot;is&quot; with a literal. Did you mean &quot;==&quot;?
-&lt;&gt;:108: SyntaxWarning: &quot;is&quot; with a literal. Did you mean &quot;==&quot;?
-&lt;&gt;:99: SyntaxWarning: &quot;is&quot; with a literal. Did you mean &quot;==&quot;?
-&lt;&gt;:108: SyntaxWarning: &quot;is&quot; with a literal. Did you mean &quot;==&quot;?
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:105: SyntaxWarning: &quot;is&quot; with a literal. Did you mean &quot;==&quot;?
+&lt;&gt;:114: SyntaxWarning: &quot;is&quot; with a literal. Did you mean &quot;==&quot;?
+&lt;&gt;:105: SyntaxWarning: &quot;is&quot; with a literal. Did you mean &quot;==&quot;?
+&lt;&gt;:114: SyntaxWarning: &quot;is&quot; with a literal. Did you mean &quot;==&quot;?
 </pre></div>
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">16</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>                 <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_name</span><span class="p">,</span> <span class="n">item</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="k">elif</span> <span class="n">build</span> <span class="o">==</span> <span class="s1">&#39;archive&#39;</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">16</span>     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../../data&#39;</span><span class="p">)):</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span>         <span class="n">data_path</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;../../data/rrsg-2020-neurolibre&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>         <span class="c1"># define data requirement path</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">28</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span>         <span class="n">data_req_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;binder&quot;</span><span class="p">,</span> <span class="s2">&quot;data_requirement.json&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>         <span class="c1"># download data</span>
+<span class="ne">---&gt; </span><span class="mi">28</span>         <span class="n">repo2data</span> <span class="o">=</span> <span class="n">Repo2Data</span><span class="p">(</span><span class="n">data_req_path</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>         <span class="n">data_path</span> <span class="o">=</span> <span class="n">repo2data</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>         
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="c1"># Imports</span>
 
-<span class="ne">NameError</span>: name &#39;Path&#39; is not defined
+<span class="ne">NameError</span>: name &#39;Repo2Data&#39; is not defined
 </pre></div>
 </div>
 </div>
