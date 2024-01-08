@@ -17,16 +17,158 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-### 2.7 &nbsp; &nbsp; | &nbsp; &nbsp; Dashboard
+# PYTHON CODE
+# Module imports
 
-To widely disseminate the challenge results, a web-based dashboard was developed (Figure 2, https://rrsg2020.dashboards.neurolibre.org). The landing page (Figure 2-a) showcases the relationship between the phantom and brain datasets acquired at different sites/vendors. Selecting the Phantom or In Vivo icons and then clicking an ROI will display whisker plots for that region. Additional sections of the dashboard allow for displaying statistics summaries for both sets of data, a magnitude vs complex data fitting comparison, and hierarchical shift function analyses.
+import matplotlib.pyplot as plt
+from PIL import Image
+from matplotlib.image import imread
+import scipy.io
+import plotly.graph_objs as go
+import numpy as np
+from plotly import __version__
+from plotly.offline import init_notebook_mode, iplot, plot
+config={'showLink': False, 'displayModeBar': False}
 
+init_notebook_mode(connected=True)
+
+from IPython.display import display, HTML
+
+import os
+import markdown
+import random
+from scipy.integrate import quad
+
+import warnings
+warnings.filterwarnings('ignore')
+config={'showLink': False, 'displayModeBar': False}
+
+data_wm=go.Scatter(
+    x=x3,
+    y=genu_estimate,
+    error_y=dict(
+        type='data', # value of error bar given in data coordinates
+        array=genu_std,
+        visible=True),
+    name = 'White matter (one 5x5 ROI, ~genu)',
+    mode = 'markers',
+    marker=dict(color='#007ea7'),
+    visible = True,
+    showlegend = False
+
+    )
+
+data_gm=go.Scatter(
+    x=x3,
+    y=cgm_estimate,
+    error_y=dict(
+        type='data', # value of error bar given in data coordinates
+        array=cgm_std,
+        visible=True),
+    name = 'Grey matter (three 3x3 ROIs, cortex)',
+    mode = 'markers',
+    marker=dict(color='#D22B2B'),
+    visible = True,
+    showlegend = False
+    )
+
+
+data = [data_wm, data_gm]
+
+
+layout = go.Layout(
+    width=960,
+    height=250,
+    margin=go.layout.Margin(
+        l=80,
+        r=40,
+        b=80,
+        t=10,
+    ),
+    xaxis_title='Site #.Meas #',
+    yaxis_title='T<sub>1</sub> (ms)',
+    font=dict(
+        family='Times New Roman',
+        size=22
+    ),
+    xaxis=dict(
+        autorange=False,
+        range=[0,57],
+        showgrid=False,
+        linecolor='black',
+        linewidth=2,
+        tickangle = -90,
+        tickmode='linear',
+        tickfont=dict(
+            family='Times New Roman',
+            size=12,
+        ),
+    ),
+    yaxis=dict(
+        autorange=False,
+        range=[0, 2999],
+        showgrid=True,
+        dtick=500,
+        gridcolor='rgb(169,169,169)',
+        linecolor='black',
+        linewidth=2,
+        tickfont=dict(
+            family='Times New Roman',
+            size=18,
+        ),
+    ),
+    annotations=[
+        dict(
+            x=-0.1,
+            y=-0.5,
+            showarrow=False,
+            text='<b>b</b>',
+            font=dict(
+                family='Times New Roman',
+                size=64
+            ),
+            xref='paper',
+            yref='paper'
+        ),
+    ],
+    paper_bgcolor='rgb(255, 255, 255)',
+    plot_bgcolor='rgb(255, 255, 255)',
+)
+
+fig = dict(data=data, layout=layout)
+
+#iplot(fig, filename = 'figure6b', config = config)
+plot(fig, filename = 'figure6b.html', config = config)
+display(HTML('figure6b.html'))
 ------------------
 
-[0;36m  Cell [0;32mIn[2], line 3[0;36m[0m
-[0;31m    To widely disseminate the challenge results, a web-based dashboard was developed (Figure 2, https://rrsg2020.dashboards.neurolibre.org). The landing page (Figure 2-a) showcases the relationship between the phantom and brain datasets acquired at different sites/vendors. Selecting the Phantom or In Vivo icons and then clicking an ROI will display whisker plots for that region. Additional sections of the dashboard allow for displaying statistics summaries for both sets of data, a magnitude vs complex data fitting comparison, and hierarchical shift function analyses.[0m
-[0m       ^[0m
-[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[4], line 28[0m
+[1;32m     24[0m warnings[38;5;241m.[39mfilterwarnings([38;5;124m'[39m[38;5;124mignore[39m[38;5;124m'[39m)
+[1;32m     25[0m config[38;5;241m=[39m{[38;5;124m'[39m[38;5;124mshowLink[39m[38;5;124m'[39m: [38;5;28;01mFalse[39;00m, [38;5;124m'[39m[38;5;124mdisplayModeBar[39m[38;5;124m'[39m: [38;5;28;01mFalse[39;00m}
+[1;32m     27[0m data_wm[38;5;241m=[39mgo[38;5;241m.[39mScatter(
+[0;32m---> 28[0m     x[38;5;241m=[39m[43mx3[49m,
+[1;32m     29[0m     y[38;5;241m=[39mgenu_estimate,
+[1;32m     30[0m     error_y[38;5;241m=[39m[38;5;28mdict[39m(
+[1;32m     31[0m         [38;5;28mtype[39m[38;5;241m=[39m[38;5;124m'[39m[38;5;124mdata[39m[38;5;124m'[39m, [38;5;66;03m# value of error bar given in data coordinates[39;00m
+[1;32m     32[0m         array[38;5;241m=[39mgenu_std,
+[1;32m     33[0m         visible[38;5;241m=[39m[38;5;28;01mTrue[39;00m),
+[1;32m     34[0m     name [38;5;241m=[39m [38;5;124m'[39m[38;5;124mWhite matter (one 5x5 ROI, ~genu)[39m[38;5;124m'[39m,
+[1;32m     35[0m     mode [38;5;241m=[39m [38;5;124m'[39m[38;5;124mmarkers[39m[38;5;124m'[39m,
+[1;32m     36[0m     marker[38;5;241m=[39m[38;5;28mdict[39m(color[38;5;241m=[39m[38;5;124m'[39m[38;5;124m#007ea7[39m[38;5;124m'[39m),
+[1;32m     37[0m     visible [38;5;241m=[39m [38;5;28;01mTrue[39;00m,
+[1;32m     38[0m     showlegend [38;5;241m=[39m [38;5;28;01mFalse[39;00m
+[1;32m     39[0m 
+[1;32m     40[0m     )
+[1;32m     42[0m data_gm[38;5;241m=[39mgo[38;5;241m.[39mScatter(
+[1;32m     43[0m     x[38;5;241m=[39mx3,
+[1;32m     44[0m     y[38;5;241m=[39mcgm_estimate,
+[0;32m   (...)[0m
+[1;32m     53[0m     showlegend [38;5;241m=[39m [38;5;28;01mFalse[39;00m
+[1;32m     54[0m     )
+[1;32m     57[0m data [38;5;241m=[39m [data_wm, data_gm]
 
-SyntaxError: invalid syntax (851234057.py, line 3)
+[0;31mNameError[0m: name 'x3' is not defined
+NameError: name 'x3' is not defined
 
