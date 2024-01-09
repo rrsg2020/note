@@ -23,6 +23,8 @@ import os
 # Imports
 import warnings
 warnings.filterwarnings("ignore")
+from pathlib import Path
+
 
 if build == 'latest':
     if path.isdir('analysis')== False:
@@ -672,14 +674,13 @@ display(HTML('figure3.html'))
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-Cell [0;32mIn[2], line 19[0m
-[1;32m     17[0m                 os[38;5;241m.[39mremove(os[38;5;241m.[39mpath[38;5;241m.[39mjoin(dir_name, item))
-[1;32m     18[0m [38;5;28;01melif[39;00m build [38;5;241m==[39m [38;5;124m'[39m[38;5;124marchive[39m[38;5;124m'[39m:
-[0;32m---> 19[0m     [38;5;28;01mif[39;00m os[38;5;241m.[39mpath[38;5;241m.[39misdir([43mPath[49m([38;5;124m'[39m[38;5;124m../../data[39m[38;5;124m'[39m)):
-[1;32m     20[0m         data_path [38;5;241m=[39m [[38;5;124m'[39m[38;5;124m../../data/rrsg-2020-neurolibre[39m[38;5;124m'[39m]
-[1;32m     21[0m     [38;5;28;01melse[39;00m:
-[1;32m     22[0m         [38;5;66;03m# define data requirement path[39;00m
+Cell [0;32mIn[2], line 27[0m
+[1;32m     25[0m         data_req_path [38;5;241m=[39m os[38;5;241m.[39mpath[38;5;241m.[39mjoin([38;5;124m"[39m[38;5;124m..[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mbinder[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mdata_requirement.json[39m[38;5;124m"[39m)
+[1;32m     26[0m         [38;5;66;03m# download data[39;00m
+[0;32m---> 27[0m         repo2data [38;5;241m=[39m [43mRepo2Data[49m(data_req_path)
+[1;32m     28[0m         data_path [38;5;241m=[39m repo2data[38;5;241m.[39minstall()
+[1;32m     30[0m [38;5;66;03m# Imports[39;00m
 
-[0;31mNameError[0m: name 'Path' is not defined
-NameError: name 'Path' is not defined
+[0;31mNameError[0m: name 'Repo2Data' is not defined
+NameError: name 'Repo2Data' is not defined
 
