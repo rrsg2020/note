@@ -75,6 +75,9 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+.jupyter-server-log.txt
+.jupyter/
+.local/
 
 # IPython
 profile_default/
@@ -136,6 +139,7 @@ _build/
 *.html
 
 # data
+data/
 *.zip
 content/data/
 content/neuromod-anat-brain-qmri/
