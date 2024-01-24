@@ -37,12 +37,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./content/_build/_page/index/singlehtml
-  compiling:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Compile Paper
-      uses: xuanxu/paper-action@main
-      with:
-        repository_url: http://github.com/${{ github.repository }}
-        branch: docs
-        journal: joss
