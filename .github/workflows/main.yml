@@ -40,10 +40,10 @@ jobs:
   compiling:
     runs-on: ubuntu-latest
     steps:
-      - name: Compile Paper
-        uses: xuanxu/paper-action@main
-        with:
-          issue_id: {{ github.event.inputs.issue_id }}
-          repository_url: http://github.com/${{ github.repository }}
-          branch: docs
-          journal: joss
+    - name: Compile Paper
+      uses: xuanxu/paper-action@main
+      with:
+        issue_id: {{ github.event.inputs.issue_id }}
+        repository_url: http://github.com/${{ github.repository }}
+        branch: docs
+        journal: joss
