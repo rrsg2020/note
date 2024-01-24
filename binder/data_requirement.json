@@ -1,5 +1,5 @@
 { 
     "src": "https://github.com/rrsg2020/analysis/releases/download/v1/rrsg-2020-neurolibre.zip",
-    "dst": "../data",
-    "projectName": "rrsg-2020-neurolibre"
+    "dst": "../",
+    "projectName": "data"
 }
