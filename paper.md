@@ -95,10 +95,10 @@ authors:
     affiliation: 35
   - name: Alonso Ramirez-Manzanares
     orcid: 0000-0001-6645-9162
-    affiliation: 36
+    affiliation: 35
   - name: Ben Statton
     orcid: 0000-0001-5118-7977
-    affiliation: 37
+    affiliation: 36
   - name: Christian Stehning
     orcid: 0000-0002-0660-840X
     affiliation: 30
@@ -110,11 +110,11 @@ authors:
     affiliation: 6
   - name: Chenyang Wang
     orcid: 0000-0001-6798-0857
-    affiliation: 38
+    affiliation: 37
   - name:  Kilian Weis
     affiliation: 30
   - name: Niloufar Zakariaei
-    affiliation: 39
+    affiliation: 38
   - name: Shuo Zhang
     orcid: 0000-0002-1057-7255
     affiliation: 30
@@ -123,7 +123,7 @@ authors:
     affiliation: 6
   - name: Nikola Stikov
     orcid: 0000-0002-8480-5230
-    affiliation: "1, 2, 40"
+    affiliation: "1, 2, 39"
 affiliations:
  - name: NeuroPoly Lab, Polytechnique Montréal, Montreal, Quebec, Canada
    index: 1
@@ -193,43 +193,25 @@ affiliations:
    index: 33
  - name: Sunnybrook Research Institute, Toronto, Canada
    index: 34
- - name: National Laboratory for Magnetic Resonance Imaging, Institute of Neurobiology, Universidad Nacional Autónoma de México (UNAM), Juriquilla, Mexico
-   index: 35
  - name: Computer Science Department, Centro de Investigación en Matemáticas, A.C., Guanajuato, México
-   index: 36
+   index: 35
  - name: Medical Research Council, London Institute of Medical Sciences, Imperial College London, London, United Kingdom
-   index: 37
+   index: 36
  - name: Department of Radiation Oncology - CNS Service, The University of Texas MD Anderson Cancer Center, Texas, USA
-   index: 38
+   index: 37
  - name: Department of Biomedical Engineering, University of British Columbia, British Columbia, Canada
-   index: 39
+   index: 38
  - name: Center for Advanced Interdisciplinary Research, Ss. Cyril and Methodius University, Skopje, North Macedonia
-   index: 40
+   index: 39
    
-date: 5 June 2023
+date: 24 January 2024
 bibliography: paper.bib
 
 ---
 
 # Summary
 
-We present the results of the ISMRM 2020 joint Reproducible Research and Quantitative MR study groups reproducibility challenge on T<sub>1</sub> mapping in phantom and human brain. T<sub>1</sub> mapping, a widely used quantitative MRI technique, exhibits inconsistent tissue-specific values across protocols, sites, and vendors. The challenge aimed to assess the reliability of an independently-implemented image acquisition protocol using inversion recovery in a standardized phantom and healthy human brains. Participants acquired T<sub>1</sub> mapping data from MRIs of three manufacturers at 3T, resulting in 39 phantom datasets and 56 datasets from healthy human subjects. The robust imaging protocol and fitting algorithm demonstrated good reproducibility in both phantom and human brain T<sub>1</sub> measurements. However, variations in implementation led to higher variance in reported values compared to intra-submission variability. This challenge resulted in the creation of a comprehensive open database of T<sub>1</sub> mapping acquisitions, accessible at [osf.io/ywc9g/](https://osf.io/ywc9g/), and an [interactive dashboard](https://rrsg2020.db.neurolibre.org) for wider community access and engagement.
-
-# Statement of need
-
-T<sub>1</sub> mapping is a widely used quantitative MRI technique that provides valuable information about tissue properties. However, the field faces a significant challenge due to the inconsistency of tissue-specific T<sub>1</sub> values across different imaging protocols, sites, and vendors. This inconsistency hampers the comparability and reliability of T<sub>1</sub> measurements, limiting their utility in both research and clinical applications. To address this critical issue, the ISMRM Reproducible Research study group (RRSG) and Quantitative MR study group (qMRSG) collaborated to launch the T<sub>1</sub> mapping reproducibility challenge.
-
-The primary objective of the challenge was to investigate whether independently-implemented image acquisition protocols at multiple centers could reliably measure T<sub>1</sub> using inversion recovery in a standardized phantom and in the brains of healthy volunteers. By evaluating the reproducibility of a well-established T<sub>1</sub> mapping protocol and fitting algorithm from a reputable publication [@Barral2010-qm], the challenge aimed to identify sources of variability and establish best practices for achieving consistent and accurate T<sub>1</sub> measurements.
-
-A diverse group of participants was invited to acquire T<sub>1</sub> mapping data on a standard ISMRM/NIST phantom and/or in healthy human brains using MRI scanners from three different manufacturers (Siemens, GE, Philips) operating at 3T, with one submission acquired at 0.35T. To enhance reproducibility and transparency, data submission, pipeline development, and analysis were conducted using open-source platforms. For participants collecting data at multiple sites, both inter-submission and intra-submission comparisons were performed by selecting one dataset per submission.
-
-The results of the challenge were promising, with a total of 18 submissions accepted, consisting of 38 phantom datasets and 56 datasets from healthy human subjects. The mean coefficient of variation (COV) for inter-submission phantom measurements was 6.1%, nearly twice as high as the evaluated intra-submission COV of 2.9%. A similar trend was observed in the human data, where the inter-submission COV for the genu was 6.0% compared to the intra-submission COV of 2.9%, and for the cortical gray matter, the inter-submission COV was 16% while the intra-submission COV was 6.9%.
-
-The evaluation of the imaging protocol and fitting algorithm based on @Barral2010-qm demonstrated good reproducibility of both phantom and human brain T<sub>1</sub> measurements. However, variations in the implementation of the protocol among the submissions led to higher variance in reported values relative to the intra-submission variability. This finding underscores the importance of standardized protocols and consistent implementation to ensure reliable and comparable T<sub>1</sub> measurements across different imaging centers.
-
-One of the major outcomes of the challenge was the creation of a large open database of inversion recovery T<sub>1</sub> mapping acquisitions, which encompasses data acquired from multiple sites and MRI vendors. This database, accessible at osf.io/ywc9g/, holds significant value for the wider research community, enabling researchers to explore and engage with a comprehensive collection of T<sub>1</sub> mapping data. To further facilitate access and utilization of the dataset, an interactive dashboard (\autoref{fig:dashboard}) was developed, accessible at [https://rrsg2020.db.neurolibre.org](https://rrsg2020.db.neurolibre.org).
-
-Overall, this T<sub>1</sub> mapping reproducibility challenge fills a critical need in the field by addressing the inconsistency of T<sub>1</sub> values across different protocols, sites, and vendors. The findings and resources generated through this challenge will contribute to the standardization and improvement of T<sub>1</sub> mapping techniques, promoting greater reliability and comparability of T<sub>1</sub> measurements. Ultimately, these advancements will enhance the accuracy and clinical relevance of T<sub>1</sub> mapping in various research and clinical applications, fostering advancements in precision medicine and improving patient care.
+We present the results of the ISMRM 2020 joint Reproducible Research and Quantitative MR study groups reproducibility challenge on T<sub>1</sub> mapping in phantom and human brain. T<sub>1</sub> mapping, a widely used quantitative MRI technique, exhibits inconsistent tissue-specific values across protocols, sites, and vendors. The challenge aimed to assess the reproducibility of a well-established inversion recovery T1 mapping technique, with acquisition details published solely as a PDF, on a standardized phantom and in human brains. Participants acquired T<sub>1</sub> mapping data from MRIs of three manufacturers at 3T, resulting in 39 phantom datasets and 56 datasets from healthy human subjects. The T<sub>1</sub> inter-submission variability was twice as high as the intra-submission variability in both phantoms and human brains, indicating that the acquisition details in the selected paper were insufficient to reproduce a quantitative MRI protocol. This study reports the inherent uncertainty in  T<sub>1</sub> measures across independent research groups, bringing us one step closer to a practical clinical baseline of  T<sub>1</sub> variations in vivo. This challenge resulted in the creation of a comprehensive open database of T<sub>1</sub> mapping acquisitions, accessible at [osf.io/ywc9g/](https://osf.io/ywc9g/), and an [interactive dashboard](https://rrsg2020.db.neurolibre.org) for wider community access and engagement.
 
 # Figures
 
@@ -243,11 +225,6 @@ The conception of this collaborative reproducibility challenge originated from d
 The authors thank the ISMRM Reproducible Research Study Group for conducting a code review of the code (Version 1) supplied in the Data Availability Statement. The scope of the code review covered only the code’s ease of download, quality of documentation, and ability to run, but did not consider scientific accuracy or code efficiency.
 
 Lastly, we acknowledge use of ChatGPT (v3), a generative language model, for accelerating manuscript preparation. The co-first authors employed ChatGPT in the initial draft for transforming bullet point sentences into paragraphs, proofreading for typos, and refining the academic tone. ChatGPT served exclusively as a writing aid, and was not used to create or interpret results.
-
-\awesomebox[red]{2pt}{\faExclamationCircle}{red}{\textbf{NOTE}}
-
- > The following section in this document repeats the narrative content exactly as                     found in the [corresponding NeuroLibre Reproducible Preprint (NRP)](https://preprint.neurolibre.org/10.55458/neurolibre.00014). The content was                     automatically incorporated into this PDF using the NeuroLibre publication workflow [@Karakuzu2022-nlwf] to                     credit the referenced resources. The submitting author of the preprint has verified and approved the                     inclusion of this section through a GitHub pull request made to the [source repository](https://github.com/rrsg2020/paper) from which this document was built.                     Please note that the figures and tables have been excluded from this (static) document. **To interactively explore such outputs and re-generate them, please visit the corresponding [NRP](https://preprint.neurolibre.org/10.55458/neurolibre.00014).**                     For more information on integrated research objects (e.g., NRPs) that bundle narrative and executable content for reproducible and transparent publications,                     please refer to @Dupre2022-iro. NeuroLibre is sponsored by the Canadian Open Neuroscience Platform (CONP) [@Harding2023-conp].
-
 
 1     |     INTRODUCTION
 ========================
@@ -350,7 +327,7 @@ align: center
 ```
 
 <p class="caption">
-<b>Figure 1</b>. List of the datasets submitted to the challenge. Submissions that included phantom data are shown in a), and those that included human brain data are shown in b). For the phantom (panel a), each submission acquired its data using a single phantom, however, some researchers shared the same physical phantom with each other. Green indicates submissions used for inter-submission analyses, and orange indicates the sites used for intra-submission analyses. T<sub>1</sub> maps used in the calculations of inter- (green) and intra- (orange) submission coefficients of variation (COV) are indicated with asterisks. A more detailed figure can be found in the Supplementary Figure A. Images c) and d) illustrate the ROI choice in phantom and humans.
+<b>Figure 1</b>. List of the datasets submitted to the challenge. Submissions that included phantom data are shown in a), and those that included human brain data are shown in b). For the phantom (panel a), each submission acquired its data using a single phantom, however, some researchers shared the same physical phantom with each other. Green indicates submissions used for inter-submission analyses, and orange indicates the sites used for intra-submission analyses. T<sub>1</sub> maps used in the calculations of inter- (green) and intra- (orange) submission coefficients of variation (COV) are indicated with asterisks. Images c) and d) illustrate the ROI choice in phantom and humans.
 </p>
 
 
@@ -358,11 +335,6 @@ align: center
 -----------------------------
 
 A reduced-dimension non-linear least squares (RD-NLS) approach was used to fit the complex general inversion recovery signal equation:
-
-```{math}
-:label: my_label
-S(TI) = a + be^{-TI/T_1}
-```
 
 where a and b are complex constants. This approach, developed by Barral et al. {cite:p}`Barral2010-qm`, offers a model for the general T<sub>1</sub> signal equation without relying on the long-TR approximation. The a and b constants inherently factor TR in them, as well as other imaging parameters such as excitation pulse angle, inversion pulse flip angles, TR, TE, TI, and a constant that has contributions from T<sub>2</sub> and the receive coil sensitivity. Barral et al. [31] shared their MATLAB (MathWorks, Natick, MA) code for the fitting algorithm used in their paper [^their-paper]. Magnitude-only data were fitted to a modified version of Eq. 1 (Eq. 15 of Barral et al. 2010) with signal-polarity restoration by finding the signal minima, fitting the inversion recovery curve for two cases (data points for TI < TI<sub>minimum</sub> flipped, and data points for TI ≤ TI<sub>minimum</sub> flipped), and selecting the case that resulted in the best fit based on minimizing the residual between the model and the measurements [^residual]. This code is available as part of the open-source software qMRLab {cite:p}`Karakuzu2020-ul,Cabana2015-zg`, which provides a standardized application program interface (API) to call the fitting in MATLAB/Octave scripts.
 
