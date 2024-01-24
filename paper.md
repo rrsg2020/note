@@ -1,5 +1,5 @@
 ---
-title: 'Results of the ISMRM 2020 joint Reproducible Research & Quantitative MR study groups reproducibility challenge on phantom and human brain T<sub>1</sub> mapping'
+title: 'Paper is not enough: Crowdsourcing the T<sub>1</sub> mapping common ground via the ISMRM reproducibility challenge'
 tags:
   - quantitative MRI
   - T1 mapping
@@ -32,7 +32,7 @@ authors:
     affiliation: 10
   - name: Mariya Doneva
     affiliation: 11
-  - name: Seraina Dual
+  - name: Seraina A. Dual
     orcid: 0000-0001-6867-8270
     affiliation: 12
   - name: Alex Ensworth
@@ -147,7 +147,7 @@ affiliations:
    index: 10
  - name: Philips Research Hamburg, Germany
    index: 11
- - name: Stanford University, Stanford, California, United States
+ - name: Department of Radiology, Stanford University, Stanford, California, United States
    index: 12
  - name: Medical Physics Unit, McGill University, Montreal, Canada
    index: 13
@@ -213,7 +213,7 @@ bibliography: paper.bib
 
 # Summary
 
-We present the results of the ISMRM 2020 joint Reproducible Research and Quantitative MR study groups reproducibility challenge on T<sub>1</sub> mapping in phantom and human brain. T<sub>1</sub> mapping, a widely used quantitative MRI technique, exhibits inconsistent tissue-specific values across protocols, sites, and vendors. The challenge aimed to assess the reliability of an independently-implemented image acquisition protocol using inversion recovery in a standardized phantom and healthy human brains. Participants acquired T<sub>1</sub> mapping data from MRIs of three manufacturers at 3T, resulting in 38 phantom datasets and 56 datasets from healthy human subjects. The robust imaging protocol and fitting algorithm demonstrated good reproducibility in both phantom and human brain T<sub>1</sub> measurements. However, variations in implementation led to higher variance in reported values compared to intra-submission variability. This challenge resulted in the creation of a comprehensive open database of T<sub>1</sub> mapping acquisitions, accessible at [osf.io/ywc9g/](https://osf.io/ywc9g/), and an [interactive dashboard](https://rrsg2020.db.neurolibre.org) for wider community access and engagement.
+We present the results of the ISMRM 2020 joint Reproducible Research and Quantitative MR study groups reproducibility challenge on T<sub>1</sub> mapping in phantom and human brain. T<sub>1</sub> mapping, a widely used quantitative MRI technique, exhibits inconsistent tissue-specific values across protocols, sites, and vendors. The challenge aimed to assess the reliability of an independently-implemented image acquisition protocol using inversion recovery in a standardized phantom and healthy human brains. Participants acquired T<sub>1</sub> mapping data from MRIs of three manufacturers at 3T, resulting in 39 phantom datasets and 56 datasets from healthy human subjects. The robust imaging protocol and fitting algorithm demonstrated good reproducibility in both phantom and human brain T<sub>1</sub> measurements. However, variations in implementation led to higher variance in reported values compared to intra-submission variability. This challenge resulted in the creation of a comprehensive open database of T<sub>1</sub> mapping acquisitions, accessible at [osf.io/ywc9g/](https://osf.io/ywc9g/), and an [interactive dashboard](https://rrsg2020.db.neurolibre.org) for wider community access and engagement.
 
 # Statement of need
 
@@ -248,28 +248,13 @@ The conception of this collaborative reproducibility challenge originated from d
 1     |     INTRODUCTION
 ========================
 
+Significant challenges exist in the reproducibility of quantitative MRI (qMRI) {cite:p}`Keenan2019-ni`. Despite its promise of improving the specificity and reproducibility of MRI acquisitions, few qMRI techniques have been integrated into clinical practice. Even the most fundamental MR parameters cannot be measured with sufficient reproducibility and precision across clinical scanners to pass the second of six stages of technical assessment for clinical biomarkers {cite:p}`Fryback1991-sy,Schweitzer2016-fl,Seiberlich2020-xe`. Half a century has passed since the first quantitative T<sub>1</sub> (spin-lattice relaxation time) measurements were first reported as a potential biomarker for tumors {cite:p}`Damadian1971-sc`, followed shortly thereafter by the first in vivo T<sub>1</sub> maps {cite:p}`Pykett1978-mk` of tumors, but there is still disagreement in reported values for this fundamental parameter across different sites, vendors, and measurement techniques {cite:p}`Stikov2015-qj`.
 
-Significant challenges exist in the reproducibility of quantitative MRI (qMRI) [@Keenan2019-ni]. Despite its promise of improving the specificity and reproducibility of MRI acquisitions, few qMRI techniques have been integrated into clinical practice. Even the most fundamental MR parameters cannot be measured with sufficient reproducibility and precision across clinical scanners to pass the second of six stages of technical assessment for clinical biomarkers [@Fryback1991-sy; @Schweitzer2016-fl; @Seiberlich2020-xe]. Half a century has passed since the first quantitative T1 (spin-lattice relaxation time) measurements were first reported as a potential biomarker for tumors [@Damadian1971-sc], followed shortly thereafter by the first in vivo quantitative T1 maps [@Pykett1978-mk] of tumors, but there is still disagreement in reported values for this fundamental parameter across different sites, vendors, and implementations [@stikov2015].
+Among fundamental MRI parameters, T<sub>1</sub> holds significant importance {cite:p}`Boudreau2020-jf`. T<sub>1</sub> represents the time constant for recovery of equilibrium longitudinal magnetization. T<sub>1</sub> values will vary depending on the molecular mobility and magnetic field strength {cite:p}`Bottomley1984-qx,Wansapura1999-tf,Dieringer2014-qz`. Knowledge of the T<sub>1</sub> values for tissue is crucial for optimizing clinical MRI sequences for contrast and time efficiency {cite:p}`Ernst1966-pp,Redpath1994-sb,Tofts1997-ln` and to calibrate other quantitative MRI techniques {cite:p}`Sled2001-fz,Yuan2012-xh`. Inversion recovery (IR) {cite:p}`Drain1949-yk,Hahn1949-wf` is considered the gold standard for T<sub>1</sub> measurement due to its robustness effects like B<sub>1</sub> inhomogeneity {cite:p}`Stikov2015-qj`, but its long acquisition times limit the clinical use of IR for T<sub>1</sub> mapping {cite:p}`Stikov2015-qj`. In practice, IR is often used as a reference for validating other T<sub>1</sub> mapping techniques, such as variable flip angle imaging (VFA) {cite:p}`Fram1987-jj,Deoni2003-qc,Cheng2006-qe`, Look-Locker {cite:p}`Look1970-no,Messroghli2004-iv,Piechnik2010-be`, and MP2RAGE {cite:p}`Marques2010-po,Marques2013-yg`.
 
+In ongoing efforts to standardize T<sub>1</sub> mapping methods, researchers have been actively developing quantitative MRI phantoms {cite:p}`Keenan2018-px`. The International Society for Magnetic Resonance in Medicine (ISMRM) and the National Institute of Standards and Technology (NIST) collaborated on a standard system phantom {cite:p}`Stupic2021-hu`, which was subsequently commercialized (Premium System Phantom, CaliberMRI, Boulder, Colorado). This phantom has since been used in large multicenter studies, such as Bane et al. {cite:p}`Bane2018-wt` which concluded that acquisition protocol and field strength influence accuracy, repeatability, and interplatform reproducibility. Another NIST-led study {cite:p}`Keenan2021-ly` found no significant T<sub>1</sub> discrepancies among measurements using NIST protocols across 27 MRI systems from three vendors at two clinical field strengths.
 
-Among fundamental MRI parameters, T1 holds significant importance [@Boudreau2020-jf]. It represents the time it takes for the longitudinal magnetization to recover after being disturbed by an RF pulse. The T1 value varies based on molecular mobility and magnetic field strength [@Bottomley1984-qx; @Dieringer2014-qz; @Wansapura1999-tf], making it a valuable parameter for distinguishing different tissue types. Accurate knowledge of T1 values is essential for optimizing clinical MRI pulse sequences for contrast and time efficiency [@Ernst1966-pp; @Redpath1994-sb; @Tofts1997-ln] and as a calibration parameter for other quantitative MRI techniques [@Sled2001-fz; @Yuan2012-xh]. Among the number of techniques to measure T1, inversion recovery (IR) [@Drain1949-yk; @Hahn1949-wf] is widely held as the gold standard technique, as it is robust against other effects (e.g. B1 inhomogeneity) and potential errors in measurements (e.g. insufficient spoiling) [@stikov2015]. However, because the technique requires a long repetition time (TR > T1), it is very slow and impractical for whole-organ measurements, limiting its clinical use. In practice, it is mostly used as a reference to validate other T1 mapping techniques, such as variable flip angle imaging (VFA) [@Cheng2006-qe; @Deoni2003-qc; @Fram1987-jj], Look-Locker [@Look1970-no; @Messroghli2004-iv; @Piechnik2010-be], and MP2RAGE [@Marques2010-po; @Marques2013-yg].
-
-
-Efforts have been made to develop quantitative MRI phantoms to assist in standardizing T1 mapping methods [@Keenan2018-px]. A quantitative MRI standard system phantom was created in a joint project between the International Society for Magnetic Resonance in Medicine (ISMRM) and the National Institute of Standards and Technology (NIST) [@Stupic2021-hu], and has since been commercialized (Premium System Phantom, CaliberMRI, Boulder, Colorado). The spherical phantom has a 57-element fiducial array containing spheres with doped liquids that model a wide range of T1, T2, and PD values. The reference values of each sphere were measured using NMR at 3T [@Stupic2021-hu]. The standardized concentration for relaxometry values established as references by NIST are also used by another company for their relaxometry MRI phantoms (Gold Standard Phantoms Ltd., Rochester, England). The cardiac TIMES phantom [@Captur2016-xn] is another commercially available system phantom focusing on T1 and T2 values in blood and heart muscles, pre- and post-contrast. The ISMRM/NIST phantom has been used in several large multicenter studies already, for example in [@Bane2018-wt] where they compared measurements at eight sites on a single ISMRM/NIST phantom using the inversion recovery and VFA T1 mapping protocols recommended by NIST, as well as some site-specific imaging protocols used for dynamic contrast enhanced (DCE) imaging. @Bane2018-wt concluded that the acquisition protocol, field strength, and T1 value of the sample impacted the level of accuracy, repeatability, and interplatform reproducibility that was observed. In another study led by NIST researchers [@Keenan2021-ly], T1 measurements were done at two clinical field strengths (1.5T and 3.0 T) and 27 MRI systems (three vendors) using the recommended NIST protocols. That study, which only investigated phantoms, found no significant relationship between T1 discrepancies of the measurements and the MRI vendors used.
-
-
-The 2020 ISMRM reproducibility challenge [^rrsg2020-challenge] posed the following question: 
-
-
-
-> 
-> **Will an imaging protocol independently-implemented at multiple centers reliably measure what is considered one of the fundamental MR parameters (T1) using the most robust technique (inversion recovery) in a standardized phantom (ISMRM/NIST system phantom) and in the healthy human brain?** 
-> 
-> 
-> 
-
-
-More broadly, this challenge aimed at assessing the reproducibility of a qMRI method presented in a seminal paper, [@Barral2010-qm], by evaluating the variability in measurements observed by different research groups that implemented this imaging protocol. As the focus of this challenge was on reproducibility, the challenge design emphasized the use of reproducible research practices, such as sharing code, pipelines, data, and scripts to reproduce figures.
+The 2020 ISMRM reproducibility challenge [^rrsg2020-challenge] posed the following question: can an imaging protocol, independently implemented at multiple centers, consistently measure one of the fundamental MRI parameters (T<sub>1</sub>)? To assess this, we proposed using inversion recovery on a standardized phantom (ISMRM/NIST system phantom) and the healthy human brain. Specifically, **this challenge explored whether the acquisition details provided in a seminal paper on T<sub>1</sub> mapping {cite:p}`Barral2010-qm` is sufficient to ensure the reproducibility across independent research imaging groups.**
 
 
 2     |     METHODS
@@ -280,140 +265,180 @@ More broadly, this challenge aimed at assessing the reproducibility of a qMRI me
 ------------------------------------
 
 
-The phantom portion of the challenge was launched for those with access to the ISMRM/NIST system phantom [@Stupic2021-hu] (Premium System Phantom, CaliberMRI, Boulder, Colorado). Two versions of the phantom have been produced with slightly different T1/T2/PD values in the liquid spheres, and both versions were used in this study. Phantoms with serial numbers 0042 or less are referred to as “Version 1”, and those with 0043 or greater are “Version 2”. The phantom has three plates containing sets of 14 spheres for ranges of proton density (PD), T1 (NiCl2), and T2 (MnCl2) values. Reference T1 values at 20 °C and 3T for the T1 plate are listed in {numref}`table1` for both versions of the phantom. Researchers that participated in the challenge were instructed to record the temperature before and after scanning the phantom using the phantom's internal thermometer. Instructions for positioning and setting up the phantom were devised by NIST after they had designed the phantom (prior to the challenge), and were provided to participants through the NIST website [^nist-website]. In brief, instructions included details about how to orient the phantom consistently at different sites, and how long the phantom should be in the scanner room prior to scanning so that a thermal equilibrium was achieved prior to scanning.
+# 2 &nbsp; &nbsp; | &nbsp; &nbsp; METHODS
+
+## 2.1 &nbsp; &nbsp; | &nbsp; &nbsp; Phantom and human data
 
 
-Participants were also instructed to collect T1 maps in the brains of healthy human participants, if possible. To ensure consistency across datasets, single-slice positioning parallel to the anterior commissure - posterior commissure (AC-PC) line was recommended. Before the scanning process, the participants granted their consent [^informed-consent] to share their de-identified data openly with the challenge organizers and on the website Open Science Framework (OSF.io). As the submitted single-slice inversion recovery images would be along the AC-PC line, they are unlikely to contain sufficient information for facial identification, and therefore participants were not instructed to de-face their data. The researchers who submitted human data for the challenge provided written confirmation to the organizers that their data was acquired in accordance with their institutional ethics committee (or equivalent regulatory body) and that the subjects had consented to sharing their data as described in the challenge.
+The challenge asked researchers with access to the ISMRM/NIST system phantom {cite:p}`Stupic2021-hu` (Premium System Phantom, CaliberMRI, Boulder, Colorado) to measure T<sub>1</sub> maps of the phantom’s T<sub>1</sub> plate ({numref}`table1`). Researchers who participated in the challenge were instructed to record the temperature before and after scanning the phantom using the phantom's internal thermometer. Instructions for positioning and setting up the phantom were devised by NIST and were provided to researchers through their website [^nist-website]. In brief, the instructions explained how to orient the phantom and how long the phantom should be in the scanner room prior to scanning to achieve thermal equilibrium.
+
+```{list-table} Reference [^phantom-reference] T<sub>1</sub> values of the NiCl<sub>2</sub> array of the standard system phantom (for both phantom versions) measured at 20 °C and 3T. Phantoms with serial numbers 0042 or less are referred to as “Version 1”, and those 0043 or greater are “Version 2”.
+:header-rows: 1
+:name: table1
+
+* - Sphere
+  - Version 1 (ms)
+  - Version 2 (ms)
+* - 1  
+  - 1989 ± 1.0
+  - 1883.97 ± 30.32
+* - 2  
+  - 1454 ± 2.5
+  - 1330.16 ± 20.41
+* - 3  
+  - 984.1 ± 0.33
+  - 987.27 ± 14.22
+* - 4  
+  - 706 ± 1.0
+  - 690.08 ± 10.12
+* - 5  
+  - 496.7 ± 0.41
+  - 484.97 ± 7.06
+* - 6  
+  - 351.5 ± 0.91
+  - 341.58 ± 4.97
+* - 7  
+  - 247.13 ± 0.086
+  - 240.86 ± 3.51
+* - 8  
+  - 175.3 ± 0.11
+  - 174.95 ± 2.48
+* - 9  
+  - 125.9 ± 0.33
+  - 121.08 ± 1.75
+* - 10  
+  - 89.0 ± 0.17
+  - 85.75 ± 1.24
+* - 11  
+  - 62.7 ± 0.13
+  - 60.21 ± 0.87
+* - 12  
+  - 44.53 ± 0.090
+  - 42.89 ± 0.44
+* - 13  
+  - 30.84 ± 0.016
+  - 30.40 ± 0.62
+* - 14  
+  - 21.719 ± 0.005
+  - 21.44 ± 0.31
+```
+
+Researchers were also instructed to collect T<sub>1</sub> maps in healthy human brains, and were asked to measure a single slice positioned parallel to the anterior commissure - posterior commissure (AC-PC) line. Prior to imaging, the imaging subjects consented [^informed-consent] to share their de-identified data with the challenge organizers and on the Open Science Framework ([OSF.io](http://www.OSF.io)) website. As the submitted data was a single slice, the researchers were not instructed to de-face the data of their imaging subjects. Researchers submitting human data provided written confirmation to the organizers that their data was acquired in accordance with their institutional ethics committee (or equivalent regulatory body) and that the subjects had consented to data sharing as outlined in the challenge.
 
 
-2.2     |     Protocol
-----------------------
+2.2     |     MRI Acquisition Protocol
+--------------------------------------
 
-
-Participants were instructed to acquire the T1 mapping data using the spin-echo inversion recovery protocol for T1 mapping as reported in [@Barral2010-qm], and detailed in {numref}`table2`. This protocol uses four inversion times optimized for human brain T1 values and uses a relatively short TR (2550 ms). It is important to note that this acquisition protocol is not suitable for T1 fitting models that assume TR > 5T1. Instead, more general models of inversion recovery, such as the @Barral2010-qm fitting model described in Section 2.4.1, can be used to fit this data.
-
-
-Researchers who participated in the challenge were advised to adhere to this protocol as closely as possible, and to report any differences in protocol parameters due to technical limitations of their scanners and/or software. It was recommended that participants submit complex data (magnitude and phase, or real and imaginary), but magnitude-only data was also accepted if complex data could not be conveniently exported.
+Researchers followed the inversion recovery T<sub>1</sub> mapping protocol optimized for the human brain as described in the paper published by Barral et al. {cite:p}`Barral2010-qm`, which used: TR = 2550 ms, TIs = 50, 400, 1100, 2500 ms, TE = 14 ms, 2 mm slice thickness and 1×1 mm<sup>2</sup> in-plane resolution. Note that this protocol is not suitable for fitting models that assume TR > 5T1. Instead, the more general Barral et al. {cite:p}`Barral2010-qm` fitting model described in Section 2.4 can be used, and this model is compatible with both magnitude-only and complex data. Researchers were instructed to closely adhere to this protocol and report any deviations due to technical limitations.
 
 
 2.3     |     Data Submissions
 ------------------------------
 
+Data submissions for the challenge were handled through a GitHub repository ([https://github.com/rrsg2020/data_submission](https://github.com/rrsg2020/data_submission)), enabling a standardized and transparent process. All datasets were converted to the NIfTI format, and images for all TIs were concatenated along the fourth dimension. Each submission included a YAML file to store additional information (submitter details, acquisition details, and phantom or human subject details). Submissions were reviewed [^submission-review], and following acceptance the datasets were uploaded to OSF.io ([osf.io/ywc9g/](http://www.osf.io/ywc9g/)). A Jupyter Notebook {cite:p}`Kluyver2016-nl,Beg2021-ps` pipeline using qMRLab {cite:p}`Karakuzu2020-ul,Cabana2015-zg` was used to process the T<sub>1</sub> maps and to conduct quality-control checks. MyBinder links to Jupyter notebooks that reproduced each T<sub>1</sub> map were shared in each respective submission GitHub issue to easily reproduce the results in web browsers while maintaining consistent computational environments. Eighteen submissions were included in the analysis, which resulted in 39 T<sub>1</sub> maps of the NIST/system phantom, and 56 brain T<sub>1</sub> maps. Figure 1 illustrates all the submissions that acquired phantom data (Figure 1-a) and human data (Figure 1-b), the MRI scanner vendors, and the resulting T<sub>1</sub> mapping datasets. Some submissions included measurements where both complex and magnitude-only data from the same acquisition were used to fit T<sub>1</sub> maps, thus the total number of unique acquisitions is lower than the numbers reported above (27 for phantom data and 44 for human data). The datasets were collected on systems from three MRI manufacturers (Siemens, GE, Philips) and were acquired at 3T [^three-t], except for one dataset acquired at 0.35T (the ViewRay MRidian MR-linac).
 
-Data submissions for the challenge were managed through a dedicated repository on GitHub, accessible at <https://github.com/rrsg2020/data_submission>. This allowed transparent and open review of the submissions, as well as standardization of the process. All datasets were converted to the NIfTI file format, and images from different TIs needed to be concatenated into the fourth (or “time”) dimension. Magnitude-only datasets required one NIfTI file, while complex datasets required two files (magnitude and phase, or real and imaginary). Additionally, a YAML (`*.yaml`) configuration file containing submission, dataset, and acquisition details (such as data type, submitter name and email, site details, phantom or volunteer details, and imaging protocol details) was required for each submitted dataset to ensure that the information was standardized and easily found. Each submission was reviewed to confirm that guidelines were followed, and then datasets and configuration files were uploaded to OSF.io ([osf.io/ywc9g](https://osf.io/ywc9g)). A Jupyter Notebook [@Beg2021-ps; @Kluyver2016-nl] pipeline was used to generate T1 maps using qMRLab [@Cabana2015-zg; @Karakuzu2020-ul] and quality-check the datasets prior to accepting the submissions; in particular, we assured that the NiCL2 array was imaged, that the DICOM images were correctly converted to NIfTI, the each images for each acquired TI were not renormalized (in particular, Philips platforms have different image export options that changes how the images are scaled, and a reconversion was necessary to ensure proper scaling for quantitative imaging in some cases – see the submissions GitHub issue #5 for one example [^issue-five]) for the purposes of quality assurance. Links to the Jupyter Notebook for reproducing the T1 map were shared using the MyBinder platform in each respective submission GitHub issue, ensuring that computational environments (eg, software dependencies and packages) could be reproduced to re-run the pipeline in a web browser.
+```{figure} images/figure_1.png
+---
+width: 900px
+name: fig1
+align: center
+---
+```
+
+<p class="caption">
+<b>Figure 1</b>. List of the datasets submitted to the challenge. Submissions that included phantom data are shown in a), and those that included human brain data are shown in b). For the phantom (panel a), each submission acquired its data using a single phantom, however, some researchers shared the same physical phantom with each other. Green indicates submissions used for inter-submission analyses, and orange indicates the sites used for intra-submission analyses. T<sub>1</sub> maps used in the calculations of inter- (green) and intra- (orange) submission CoVs are indicated with asterisks. A more detailed figure can be found in the Supplementary Figure A. Images c) and d) illustrate the ROI choice in phantom and humans.
+</p>
 
 
 2.4     |     Data Processing
 -----------------------------
 
-
-### 2.4.1     |     Fitting Model and Pipeline
-
-
 A reduced-dimension non-linear least squares (RD-NLS) approach was used to fit the complex general inversion recovery signal equation:
 
+```{math}
+:label: my_label
+S(TI) = a + be^{-TI/T_1}
+```
 
-where *a* and *b* are complex constants. This approach, introduced in , models the general T1 signal equation without the long-TR approximation. The a and b constants inherently factor TR in them, as well as other imaging parameters (eg, excitation and refocusing flip angles, TE, etc). @Barral2010-qm shared the implementation of the fitting algorithm used in their paper [^their-paper]([http://www-mrsrl.stanford.edu/~jbarral/t1map.html](http://www-mrsrl.stanford.edu/~jbarral/t1map.html)). Magnitude-only data were fitted to a modified-version of [1] (Eq. 15 of @Barral2010-qm) with signal-polarity restoration. To facilitate its use in our pipelines, a wrapper was implemented around this code available in the open-source software qMRLab [@Cabana2015-zg; @Karakuzu2020-ul], which provides a commandline interface (CLI) to call the fitting in MATLAB/Octave scripts.
-
-
-A Jupyter Notebook data processing pipeline was written using MATLAB/Octave. This pipeline automatically downloads all the datasets from the data-hosting platform osf.io ([osf.io/ywc9g](https://osf.io/ywc9g)), loads each dataset configuration file, fits the T1 data voxel-wise, and exports the resulting T1 map to the NIfTI and PNG formats. This pipeline is available in a GitHub repository (<https://github.com/rrsg2020/t1_fitting_pipeline>, filename: `RRSG_T1_fitting.ipynb`). Once all submissions were collected and the pipeline was executed, the T1 maps were uploaded to OSF ([osf.io/ywc9g](https://osf.io/ywc9g)).
-
-
-### 2.4.2     |     Image Labeling & Registration
+where a and b are complex constants. This approach, developed by Barral et al. {cite:p}`Barral2010-qm`, offers a model for the general T<sub>1</sub> signal equation without relying on the long-TR approximation. The a and b constants inherently factor TR in them, as well as other imaging parameters such as excitation pulse angle, inversion pulse flip angles, TR, TE, TI, and a constant that has contributions from T<sub>2</sub> and the receive coil sensitivity. Barral et al. [31] shared their MATLAB (MathWorks, Natick, MA) code for the fitting algorithm used in their paper [^their-paper]. Magnitude-only data were fitted to a modified version of Eq. 1 (Eq. 15 of Barral et al. 2010) with signal-polarity restoration by finding the signal minima, fitting the inversion recovery curve for two cases (data points for TI < TI<sub>minimum</sub> flipped, and data points for TI ≤ TI<sub>minimum</sub> flipped), and selecting the case that resulted in the best fit based on minimizing the residual between the model and the measurements [^residual]. This code is available as part of the open-source software qMRLab {cite:p}`Karakuzu2020-ul,Cabana2015-zg`, which provides a standardized application program interface (API) to call the fitting in MATLAB/Octave scripts.
 
 
-A schematic of the phantom is shown in Figure 1-a. The T1 plate (NiCl2 array) of the phantom has 14 spheres that were labeled as the regions-of-interest (ROI) using a numerical mask template created in MATLAB, provided by NIST researchers (Figure 1-b). To avoid potential edge effects in the T1 maps, the ROI labels were reduced to 60% of the expected sphere diameter. A registration pipeline in Python using the Advanced Normalization Tools (ANTs) {cite}`Avants2009-cw` was developed and shared in the analysis repository of our GitHub organization (<https://github.com/rrsg2020/analysis>, filename: `register_t1maps_nist.py`, commit ID: `8d38644`). Briefly, a label-based registration was first applied to obtain a coarse alignment, followed by an affine registration (gradientStep: 0.1, metric: cross correlation, number of steps: 3, iterations: 100/100/100, smoothness: 0/0/0, sub-sampling: 4/2/1) and a BSplineSyN registration (gradientStep:0.5, meshSizeAtBaseLevel:3, number of steps: 3, iterations: 50/50/10, smoothness: 0/0/0, sub-sampling: 4/2/1). The ROI labels template was nonlinearly registered to each T1 map uploaded to OSF.
+A data processing pipeline was written using MATLAB/Octave in a Jupyter Notebook. This pipeline downloads every dataset from OSF.io ([osf.io/ywc9g/](http://www.osf.io/ywc9g/)), loads their configuration file, fits the T</sub>1</sub> maps, and then saves them to NIfTI and PNG formats. The code is available on GitHub ([https://github.com/rrsg2020/t1_fitting_pipeline](https://github.com/rrsg2020/t1_fitting_pipeline), filename: RRSG_T1_fitting.ipynb). Finally, T<sub>1</sub> maps were manually uploaded to OSF ([osf.io/ywc9g/](http://WWW.osf.io/ywc9g/)).
+
+2.5     |     Image Labeling & Registration
+-------------------------------------------
 
 
-Figure 1 Schematic of the system phantom (a) used in this challenge. Reproduced and cropped from Stupic et al. 2021 (Stupic et al. 2021) (Creative Commons CC BY license). ROI selection for the ISMRM/NIST phantom (b) and the human brain (c). b) The 14 phantom ROIs (shades of blue/green) were automatically generated using a script provided by NIST. In yellow are the three reference pins in the phantom, i.e. these are not ROIs or spheres. c) Human brain ROIs were manually segmented in four regions: the genu (yellow, 5⨯5 voxels), splenium (green, 5⨯5 voxels), deep gray matter (blue, 5⨯5 voxels), and cortical gray matter (red, three sets of 3⨯3 voxels). Note: due to differences in slice positioning from the single-slice datasets provided by certain sites, for some datasets it was not possible to manually segment an ROI in the genu or deep gray matter. In the case of the missing genu, left or right frontal white matter (WM) was selected; for deep gray matter (GM), it was omitted entirely for those cases.
+The T<sub>1</sub> plate (NiCl<sub>2</sub> array) of the phantom has 14 spheres that were labeled as the regions-of-interest (ROI) using a numerical mask template created in MATLAB, provided by NIST researchers (Figure 1-c). To avoid potential edge effects in the T<sub>1</sub> maps, the ROI labels were reduced to 60% of the expected sphere diameter. A registration pipeline in Python using the Advanced Normalization Tools (ANTs) {cite}`Avants2009-cw` was developed and shared in the analysis repository of our GitHub organization ([https://github.com/rrsg2020/analysis](https://github.com/rrsg2020/analysis), filename: register_t1maps_nist.py, commit ID: 8d38644). Briefly, a label-based registration was first applied to obtain a coarse alignment, followed by an affine registration (gradientStep: 0.1, metric: cross correlation, number of steps: 3, iterations: 100/100/100, smoothness: 0/0/0, sub-sampling: 4/2/1) and a BSplineSyN registration (gradientStep:0.5, meshSizeAtBaseLevel:3, number of steps: 3, iterations: 50/50/10, smoothness: 0/0/0, sub-sampling: 4/2/1). The ROI labels template was nonlinearly registered to each T<sub>1</sub> map uploaded to OSF.
 
 
-Manual ROIs were segmented by a single researcher (M.B., 11+ years of neuroimaging experience) using FSLeyes [@McCarthy2019-qd] in four regions for the human datasets Figure 1-c): located in the genu, splenium, deep gray matter, and cortical gray matter. Automatic segmentation was not used because the data were single-slice and there was inconsistent slice positioning between datasets.
+For human data, manual ROIs were segmented by a single researcher (M.B., 11+ years of neuroimaging experience) using FSLeyes {cite}`McCarthy2019-qd` in four regions (Figure 1-d): located in the genu, splenium, deep gray matter, and cortical gray matter. Automatic segmentation was not used because the data were single-slice and there was inconsistent slice positioning between datasets.
 
 
-### 2.4.3     |     Analysis and Statistics
+2.6     |     Analysis and Statistics
+-------------------------------------
+
+Analysis code and scripts were developed and shared in a version-controlled public GitHub repository [^public-repo]. The T<sub>1</sub> fitting and data analysis were performed by M.B., one of the challenge organizers. Computational environment requirements were containerized in Docker {cite:p}`Merkel2014-cu,Boettiger2015-vd` to create an executable environment that allows for analysis reproduction in a web browser via MyBinder [^my-binder] {cite:p}`Project_Jupyter2018-ll`. Backend Python files handled reference data, database operations, ROI masking, and general analysis tools. Configuration files handled dataset information, and the datasets were downloaded and pooled using a script (`make_pooled_datasets.py`). The databases were created using a reproducible Jupyter Notebook script and subsequently saved in the repository.
+
+The mean T<sub>1</sub> values of the ISMRM/NIST phantom data for each ROI were compared with temperature-corrected reference values and visualized in three different types of plots (linear axes, log-log axes, and error relative to the reference value). Temperature correction involved nonlinear interpolation [^nonlinear] of a NIST reference table of T<sub>1</sub> values for temperatures ranging from 16 °C to 26 °C (2 °C intervals) as specified in the phantom’s technical specifications. For the human datasets, the mean and standard deviations for each tissue ROI were calculated from all submissions across all sites. All quality assurance and analysis plot images were stored in the repository. Additionally, the database files of ROI values and acquisition details for all submissions were also stored in the repository.
+
+2.6     |     Dashboard
+-----------------------
+
+To widely disseminate the challenge results, a web-based dashboard was developed (Figure 2, <a href="https://rrsg2020.dashboards.neurolibre.org">https://rrsg2020.dashboards.neurolibre.org</a>). The landing page (Figure 2-a) showcases the relationship between the phantom and brain datasets acquired at different sites/vendors. Selecting the Phantom or In Vivo icons and then clicking an ROI will display whisker plots for that region. Additional sections of the dashboard allow for displaying statistics summaries for both sets of data, a magnitude vs complex data fitting comparison, and hierarchical shift function analyses.
 
 
-Analysis code and scripts were developed and shared in a version-tracked public GitHub repository [^public-repo]([https://github.com/rrsg2020/analysis](https://github.com/rrsg2020/analysis)). T1 fitting and main data analysis was performed for all datasets by one of the challenge organizers (M.B.). Python-based Jupyter Notebooks were used for both the quality assurance and main analysis workflows. The computational environment requirements were containerized in Docker [@Boettiger2015-vd; @Merkel2014-cu], allowing for an executable environment that can reproduce the analysis in a web browser through MyBinder [^my-binder] [@Jupyter-2018]. Python scripts handled reference data, database handling, ROI masking, and general analysis tools, while configuration files managed the dataset information which were downloaded and pooled using a script (`make_pooled_datasets.py`). The databases were created using a reproducible Jupyter Notebook and subsequently saved in the repository.
+3     |     RESULTS
+-------------------
+
+Figure 3 presents a comprehensive overview of the challenge results through violin plots, depicting inter- and intra- submission comparisons in both phantoms (a) and human (b) datasets. Inter-submission coefficients of variation (CoV) were computed by selecting a single T<sub>1</sub> map submitted by each research group that submitted to the challenge  [^phantom-version] and calculating the CoV. For the phantom (Figure 3-a), the average inter-submission CoV for the first five spheres, representing the expected T<sub>1</sub> value range in the human brain (approximately 500 to 2000 ms) was 6.1%. By addressing outliers from two sites associated with specific challenges for sphere 4 (signal null near a TI), the mean inter-submission CoV was reduced to 4.1%. One participant (submission 6, Figure 1) measured T<sub>1</sub> maps using a consistent protocol at 7 different sites, and the mean intra-submission CoV across the first five spheres for this submission was calculated to be 2.9%.
 
 
-For the ISMRM/NIST phantom data, mean T1 values for each ROI were compared with temperature-corrected reference values and visualized in three different types of plots (linear axes, log-log axes, and error relative to the reference value). This comparison was repeated for individual measurements at each site and for all measurements grouped together. Temperature correction was carried out via nonlinear interpolation [^nonlinear] of the set of reference NIST T1 values between 16 °C and 26 °C (2 °C intervals), listed in the phantom technical specifications. For the human datasets, a notebook was created to plot the mean and standard deviations for each tissue ROI from all submissions from all sites. All quality assurance and analysis plot images were saved to the repository for ease-of-access and a timestamped version-controlled record of the state of the analysis figures. The database files of ROI values and acquisition details for all submissions were also saved to the repository.
+For the human datasets (Figure 3-b), inter-submission CoVs for independently-implemented imaging protocols were 5.9% for genu, 10.6 % for splenium, 16 % for cortical GM, and 22% for deep GM. One participant (submission 18, Figure 1) measured a large dataset (13 individuals) on three scanners and two vendors, and the intra-submission CoVs for this submission were 3.2% for genu, 3.1% for splenium, 6.9% for cortical GM, and 7.1% for deep GM. The binomial appearance for the splenium, deep GM, and cortical GM for the sites used in the inter-site analyses (green) can be explained by an outlier measurement, which can be seen in (Figure 4 e-f, site 3.001).
 
+A scatterplot of the T<sub>1</sub> data for all submissions and their ROIs is shown in Figure 4 (phantom a-c, and human brains d-f). The NIST phantom T<sub>1</sub> measurements are presented in each plot for different axes types (linear, log, and error) to better visualize the results. Figure 4-a shows good agreement for this dataset in comparison with the temperature-corrected reference T<sub>1</sub> values. However, this trend did not persist for low T<sub>1</sub> values (T<sub>1</sub> < 100-200 ms), as seen in the log-log plot (Figure 4-b), which was expected because the imaging protocol is optimized for human water-based T<sub>1</sub> values (T<sub>1</sub> > 500 ms). Higher variability is seen at long T<sub>1</sub> values (T<sub>1</sub> ~ 2000 ms) in Figure 4-a. Errors exceeding 10% are observed in the phantom spheres with T1 values below 300 ms (Figure 4-c), and 3-4 measurements with outlier values exceeding 10% error were observed in the human water-based tissue range (~500-2000 ms).
 
-An interactive dashboard [^dashboard] was developed in Dash by Plotly (Plotly Technologies Inc. 2015) and hosted by NeuroLibre [@Karakuzu2022-nlwf] to enable real-time exploration of the data, analysis, and statistics of the challenge results. The dashboard reports descriptive statistics for a variety of alternative looks at phantom and brain data, as well as some statistical comparisons (e.g., the hierarchical shift function [^hsf]). The data was collected from the pre-prepared databases of masked ROI values and incorporated other database information, such as phantom version, temperature, MRI system, and reference values. The interactive dashboard displays these results for all measurements at all sites.
-
+Figure 4 d-f displays the scatter plot data for human datasets submitted to this challenge, showing mean and standard deviation T1 values from the WM (genu and splenium) and GM (cerebral cortex and deep GM) ROIs. Mean WM T<sub>1</sub> values across all submissions were 828 ± 38 ms in the genu and 852 ± 49 ms in the splenium, and mean GM T<sub>1</sub> values were 1548 ± 156 ms in the cortex and 1188 ± 133 ms in the deep GM, with less variations overall in WM compared to GM, possibly due to better ROI placement and less partial voluming in WM. The lower standard deviations for the ROIs of human database ID site 9 (by submission 18, Figure 1, and seen in orange in Figure 4d-g) are due to good slice positioning, cutting through the AC-PC line and the genu for proper ROI placement, particularly for the corpus callosum and deep GM.
 
 4     |     DISCUSSION
 ----------------------
 
+This challenge focused on exploring if different research groups could reproduce T<sub>1</sub> maps based on the protocol information reported in a seminal publication {cite:p}`Barral2010-qm`. Eighteen submissions independently implemented the inversion recovery T<sub>1</sub> mapping acquisition protocol as outlined in Barral et al. {cite:p}`Barral2010-qm`, and reported T<sub>1</sub> mapping data in a standard quantitative MRI phantom and/or human brains at 27 MRI sites, using systems from three different vendors (GE, Philips, Siemens). The collaborative effort produced an open-source database of 94 T<sub>1</sub> mapping datasets, including 38 ISMRM/NIST phantom and 56 human brain datasets. The inter-submission variability was twice as high as the intra-submission variability in both phantom and human brain T<sub>1</sub> measurements, **demonstrating that written instructions communicated via a paper is not enough for reproducibility in quantitative MRI**. This study reports the inherent uncertainty in T<sub>1</sub> measures across independent research groups, which brings us one step closer to producing a practical baseline of variations for this metric.
 
-4.1     |     Achievements of the challenge
--------------------------------------------
+Overall, our approach did show improvement in the reproducibility of T<sub>1</sub> measurements in vivo compared to researchers implementing T<sub>1</sub> mapping protocols completely independently (i.e. with no central guidance), as literature T<sub>1</sub> values in vivo vary more than were reported here (eg. Bojorquez et al. {cite:p}`Bojorquez2017-xh` reports that reported T<sub>1</sub> values in WM vary between 699 to 1735ms in published literature). The protocol specifications we provided to researchers were more detailed than any guidelines for quantitative MR imaging that were available at the time, meaning that a coordinated approach is needed for the standardization of qMRI. Even in combination with the same T<sub>1</sub> mapping processing tools, this level of description (a PDF + post-processing tools) leaves something to be desired. 
 
+This analysis highlights that more information is needed to unify all the aspects of a pulse sequence across sites, beyond what is routinely reported in scientific publications. However, in a vendor-native setting, this is a major challenge given the disparities between proprietary development libraries {cite:p}`Gracien2020-ak`. Vendor-neutral pulse sequence design platforms {cite:p}`Layton2017-dy,Cordes2020-au,Karakuzu2022-af` have emerged as a powerful solution to standardize sequence components at the implementation level. Vendor neutrality has been shown to significantly reduce the variability of T<sub>1</sub> maps acquired using VFA across vendors {cite:p}`Karakuzu2022-af`. In the absence of a vendor-neutral framework, a vendor-native alternative is the implementation of a strategy to control the saturation of MT across TRs {cite:p}`A_G_Teixeira2020-bw`. Nevertheless, this approach can still benefit from a vendor-neutral approach to enhance accessibility and unify implementations. This is because vendor-specific constraints are recognized to impose limitations on the adaptability of sequences, resulting in significant variability even when implementations are closely aligned within their respective vendor-native development environments {cite:p}`Lee2019-ei`.
 
-The challenge focused on exploring the reproducibility of the gold standard inversion recovery T1 mapping method reported in a seminal paper [@Barral2010-qm]. Eighteen submissions independently implemented the inversion recovery T1 mapping acquisition protocol as outlined in @Barral2010-qm(which is optimized for the T1 values observed in brain tissue), and reported T1 mapping data in a standard quantitative MRI phantom and/or human brains at 27 MRI sites, using systems from three different vendors (GE, Philips, Siemens). The collaborative effort produced an open-source database of 94 T1 mapping datasets, including 38 ISMRM/NIST phantom and 56 human brain datasets. A standardized T1 processing pipeline was developed for different dataset types, including magnitude-only and complex data. Additionally, Jupyter notebooks that can be executed in containerized environments were developed for quality assurance, visualization, and analyses. An interactive web-based dashboard was also developed to allow for easy exploration of the challenge results in a web-browser.
+The 2020 Reproducibility Challenge, jointly organized by the Reproducible Research and Quantitative MR ISMRM study groups, led to the creation of a large open database of standard quantitative MR phantom and human brain inversion recovery T<sub>1</sub> maps. These maps were measured using independently implemented imaging protocols on MRI scanners from three different manufacturers. All collected data, processing pipeline code, computational environment files, and analysis scripts were shared with the goal of promoting reproducible research practices, and an interactive dashboard was developed to broaden the accessibility and engagement of the resulting datasets (https://rrsg2020.dashboards.neurolibre.org). The differences in stability between independently implemented (inter-submission) and centrally shared (intra-submission) protocols observed both in phantoms and in vivo could help inform future meta-analyses of quantitative MRI metrics {cite:p}`Mancini2020-sv,Lazari2021-oy` and better guide multi-center collaborations.
 
+By providing access and analysis tools for this multi-center T<sub>1</sub> mapping dataset, we aim to provide a benchmark for future T<sub>1</sub> mapping approaches. We also hope that this dataset will inspire new acquisition, analysis, and standardization techniques that address non-physiological sources of variability in T<sub>1</sub> mapping. This could lead to more robust and reproducible quantitative MRI and ultimately better patient care.
 
-To evaluate the accuracy of the resulting T1 values, the challenge used the standard ISMRM/NIST phantom with fiducial spheres having T1 values in the range of human brain tissue, from 500 to 2000 ms (see Figure 5). As anticipated for this protocol, there was a decrease in the accuracy in measurements for spheres with T1 below 300 ms. Overall, the majority of the independently implemented imaging protocols from various sites are consistent with the temperature-corrected reference values, with only a few exceptions. Using the NIST phantom, we report that sites that independently implemented the imaging protocol resulted in an inter-submission mean CoV (6.1 %) that was twice as high as the intra-submission mean CoV measured at seven sites (2.9 %). A similar trend was observed in vivo. Inter-submission CoV for WM (genu) was 6.0 % and for GM (cortex) was 16.5 % vs the intra-submission CoV that was 2.9 % and 6.9%, with generally higher CoVs relative to the phantom measurements likely due to biological variability [@Piechnik2013-xl; @Stanisz2005-qg].
+[^rrsg2020-challenge]: [ISMRM blog post announcingn the RRRSG challenge](https://blog.ismrm.org/2019/12/12/reproducibility-challenge-2020-join-the-reproducible-research-and-quantitative-mr-study-groups-in-their-efforts-to-standardize-t1-mapping/)
 
-
-4.2     |     Comparison with other studies
--------------------------------------------
-
-
-The work done during this challenge involved a multi-center quantitative T1 mapping study using the NIST phantom across various sites. This work overlaps with two recent studies [@Bane2018-wt; @Keenan2021-ly]. @Bane2018-wt focused on the reproducibility of two standard quantitative T1 techniques (inversion recovery and variable flip angle) and a wide variety of site-specific T1 mapping protocols for DCE, mostly VFA protocols with fewer flip angles, which were implemented at eight imaging centers covering the same 3 MRI vendors featured in this challenge (GE/Philips/Siemens). The inter-platform coefficient of variation for the standard inversion recovery T1 protocol was 5.46% at 3 T in [@Bane2018-wt], which was substantially lower than what they observed for their standard VFA protocol (22.87%). However, Bane et al.’s work differed from the challenge in several ways. First, the standard imaging protocol for inversion recovery used by @Bane2018-wt had more inversion times (14 compared to the challenge’s 4) to cover the entire range of T1 values of the phantom. Secondly, @Bane2018-wt used a single traveling phantom for all sites, whereas the challenge used a total of 8 different phantoms (some were shared amongst people who participated independently). Thirdly, @Bane2018-wt averaged the signals within each ROI of each sphere prior to fitting for the T1 values, whereas the challenge pipeline fits the T1 values on a per-voxel basis and only subsequently calculates the mean/median/std. They also only acquired magnitude data, in contrast to the challenge where participants were encouraged to submit both complex and magnitude-only data. Lastly, in @Bane2018-wt, the implementations of the common inversion recovery protocols were fully standardized (full protocol) across all the platforms (except for two cases where one manufacturer couldn’t achieve the lowest TI) and imposed and coordinated by the principal researchers. In contrast, the challenge sought to explore the variations that would occur for a less-restricted protocol (Table 2) that is independently-implemented at multiple centers, which more closely emulates the quantitative MR research flow (publication of a technique and protocol → independently implement the pulse sequence and/or protocol → use the new implementation independently in a study → publish). Of note, in the challenge, one participating group coordinated a large multicenter dataset that mirrors the study by @Bane2018-wt by imaging a single phantom across 7 different imaging sites, albeit doing so on a single manufacturer. Using this subset, the mean cross-site CoV was 2.9 % (range: 1.6 - 4.9 %) for the first five spheres, which is in agreement with the range of observations for all spheres by Bane et al. (Bane et al. 2018) at 3T using their full inversion recovery protocol (CoV = 5.46 %; range: 0.99 - 14.6 %). 
-
-
-Another study by @Bane2018-wt; @Keenan2021-ly also investigated the accuracy of T1 mapping techniques using a single ISMRM/NIST system phantom at multiple sites and on multiple platforms. Like @Bane2018-wt they used an inversion recovery imaging protocol optimized for the full range of T1 values represented in the ISMRM/NIST phantom, which consisted of 9 to 10 inversion times and a TR of 4500 ms (TR `~` 5T1 of WM at 3T). They reported no consistent pattern of differences in measured inversion recovery T1 values across MRI vendors for the two T1 mapping techniques they used (inversion recovery and VFA). They observed relative errors between their T1 measurements and the reference values of the phantom to be below 10% for all T1 values and the larger errors were observed at the lowest and highest T1 values of the phantom.
-
-
-4.3     |     Lessons Learned and Future Directions
----------------------------------------------------
-
-
-There are some important things to note about this challenge. Firstly, the submissions for this challenge were due in March 2020, which was impacted by the COVID-19 pandemic lockdowns, thereby reducing repeated experiments due to access limitations. Nevertheless, a substantial number of participants submitted their datasets. Some groups intended on acquiring more data, and others intended on re-scanning volunteers, but could no longer do so due to local pandemic restrictions.
-
-
-This reproducibility challenge aimed to compare differences between independently-implemented protocols. Crowning a winner was not an aim of this challenge, due to concerns that participants would have changed their protocols to get closer to the reference T1 values, leading to a broader difference in protocol implementations across MRI sites. Instead, we focused on building consensus by creating an open data repository, sharing reproducible workflows, and presenting the results through interactive visualizations. Future work warrants the study of inter-site differences in a vendor-neutral workflow [@Karakuzu2022-venus] by adhering to the latest Brain Imaging Data Structure (BIDS) community data standard on qMRI [@Karakuzu2022-bids]. 
-
-
-[^rrsg2020-challenge]: [ISMRM blog post announcingn the RRRSG challenge](https://blog.ismrm.org/2019/12/12/reproducibility-challenge-2020-join-the-reproducible-research-and-quantitative-mr-study-groups-in-their-efforts-to-standardize-t1-mapping)
-
-
-[^nist-website]: The [website](https://collaborate.nist.gov/mriphantoms/bin/view/MriPhantoms/SimpleImagingInstructions) provided to the participants has since been removed from the NIST website.
-
-[^my-binder]: https://mybinder.org/v2/gh/rrsg2020/analysis/master?filepath=analysis
+[^nist-website]: The [website](https://collaborate.nist.gov/mriphantoms/bin/view/MriPhantoms/SimpleImagingInstructions) provided to the researchers has since been removed from the NIST website.
 
 [^phantom-reference]: [Manufacturer's reference for the phantom](https://qmri.com/cmri-product-resources/#premium-system-resources)
 
-
 [^informed-consent]: This [website](https://www.uu.nl/en/research/research-data-management/guides/informed-consent-for-data-sharing) was provided as a resource to the participants for best practices to obtain informed consent for data sharing.
 
+[^issue-five]: [rrsg2020/data_submission issue #5](https://github.com/rrsg2020/data_submission/issues/5)
 
-[^issue-five]: [rrsg2020/data\_submission issue #5](https://github.com/rrsg2020/data_submission/issues/5)
+[^their-paper]: [http://www-mrsrl.stanford.edu/~jbarral/t1map.html](http://www-mrsrl.stanford.edu/~jbarral/t1map.html)
 
+[^residual]: [ https://github.com/qMRLab/qMRLab/blob/master/src/Models_Functions/IRfun/rdNlsPr.m#L118-L129
+]( https://github.com/qMRLab/qMRLab/blob/master/src/Models_Functions/IRfun/rdNlsPr.m#L118-L129)
 
-[^nonlinear]: The T1 values vs temperature tables reported by the phantom manufacturer did not always exhibit a linear relationship. We explored the use of spline fitting on the original data and quadratic fitting on the log-log representation of the data, Both methods yielded good results, and we opted to use the latter in our analyses. The code is found [here](https://github.com/rrsg2020/analysis/blob/master/src/nist.py), and a Jupyter Notebook used in temperature interpolation development is [here](https://github.com/rrsg2020/analysis/blob/master/temperature_correction.ipynb).
+[^public-repo]: [https://github.com/rrsg2020/analysis](https://github.com/rrsg2020/analysis)
 
-
-[^dashboard]: Interactive dashboard: <https://rrsg2020.db.neurolibre.org>, code repository: <https://github.com/rrsg2020/rrsg2020-dashboard>
-
-
-[^hsf]: The hierarchical shift function compares distributions throughout their range across multiple dependent measurements. More information can be found in this article, [@Wilcox2023-jf], and in [this blog post](https://garstats.wordpress.com/2019/02/21/hsf). 
-
+[^submission-review]: Submissions were reviewed by MB and AK. Submission guidelines (https://github.com/rrsg2020/data_submission/blob/master/README.md) and a GitHub issue checklist (https://github.com/rrsg2020/data_submission/blob/master/.github/ISSUE_TEMPLATE/data-submission-request.md) were checked. Lastly, the submitted data was passed to the T<sub>1</sub> processing pipeline and verified for quality and expected values. Feedback was sent to the authors if their submission did not adhere to the requested guidelines, or if issues with the submitted data sets were found and if possible, corrected (eg, scaling issues between inversion time data points).
 
 [^three-t]: Strictly speaking, not all manufacturers operate a 3.0 T. Even though this is the field strength advertised by the system manufacturers, there is some deviation in actual field strength between vendors. The actual center frequencies are typically reported in the DICOM files, and these were shared for most datasets and are available in our OSF.io repository (https://osf.io/ywc9g/). From these datasets, the center frequencies imply participants that used GE and Philips scanners were at 3.0T (`~`127.7 MHz), whereas participants that used Siemens scanners were at 2.89T (`~`123.2 MHz). For simplicity, we will always refer to the field strength in this article as 3T.
 
+[^my-binder]: https://mybinder.org/v2/gh/rrsg2020/analysis/master?filepath=analysis
 
-[^inter-cov]: Only T1 maps measured using phantom version 1 were included in this inter-submission COV, as including both sets would have increased the COV due to the differences in reference T1 values. There were seven participants that used version 1, and six that used version 2.
+[^nonlinear]: The T<sub>1</sub> values vs temperature tables reported by the phantom manufacturer did not always exhibit a linear relationship. We explored the use of spline fitting on the original data and quadratic fitting on the log-log representation of the data, Both methods yielded good results, and we opted to use the latter in our analyses. The code is found [here](https://github.com/rrsg2020/analysis/blob/master/src/nist.py), and a Jupyter Notebook used in temperature interpolation development is [here](https://github.com/rrsg2020/analysis/blob/master/temperature_correction.ipynb).
 
-
-[^magnitude-fit]: Due to the noise-floor or artifacts.
-
-
-[^hsf-tab]: See online dashboard https://rrsg2020.dashboards.neurolibre.org/apps/stats and click on the “HSF” tab to view these graphs for all 14 spheres.
-
+[^phantom-version]: Only T<sub>1</sub> maps measured using phantom version 1 were included in this inter-submission COV, as including both sets would have increased the COV due to the differences in reference T<sub>1</sub> values. There were seven research groups that used version 1, and six that used version 2.
 
 
 ## References
-
