@@ -39,7 +39,7 @@ h1 {
   content: url('https://neurolibre.org/assets/joss2-b7ea8dd1f24ce2b0825db17e3495576253ba4c64df3384a66354713d76c40a75.svg');
   width: 150px; 
   height: 80px;
-  position: absolute;
+  position: relative;
   right: 10px;
 }
 
