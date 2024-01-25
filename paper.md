@@ -225,5 +225,3 @@ The conception of this collaborative reproducibility challenge originated from d
 The authors thank the ISMRM Reproducible Research Study Group for conducting a code review of the code (Version 1) supplied in the Data Availability Statement. The scope of the code review covered only the code’s ease of download, quality of documentation, and ability to run, but did not consider scientific accuracy or code efficiency.
 
 Lastly, we acknowledge use of ChatGPT (v3), a generative language model, for accelerating manuscript preparation. The co-first authors employed ChatGPT in the initial draft for transforming bullet point sentences into paragraphs, proofreading for typos, and refining the academic tone. ChatGPT served exclusively as a writing aid, and was not used to create or interpret results.
-
-## References
