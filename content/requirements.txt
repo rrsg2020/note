@@ -4,3 +4,4 @@ numpy
 scipy
 plotly
 markdown
+repo2data==2.9.1

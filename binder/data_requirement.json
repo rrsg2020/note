@@ -1,5 +1,5 @@
 { 
-    "src": "https://github.com/rrsg2020/analysis/releases/download/v1/rrsg-2020-neurolibre.zip",
+    "src": "10.5281/zenodo.8419805",
     "dst": "../data",
     "projectName": "rrsg2020-note"
 }
