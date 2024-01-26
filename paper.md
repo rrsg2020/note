@@ -225,3 +225,12 @@ The conception of this collaborative reproducibility challenge originated from d
 The authors thank the ISMRM Reproducible Research Study Group for conducting a code review of the code (Version 1) supplied in the Data Availability Statement. The scope of the code review covered only the code’s ease of download, quality of documentation, and ability to run, but did not consider scientific accuracy or code efficiency.
 
 Lastly, we acknowledge use of ChatGPT (v3), a generative language model, for accelerating manuscript preparation. The co-first authors employed ChatGPT in the initial draft for transforming bullet point sentences into paragraphs, proofreading for typos, and refining the academic tone. ChatGPT served exclusively as a writing aid, and was not used to create or interpret results.
+
+ \awesomebox[red]{2pt}{\faExclamationCircle}{red}{\textbf{NOTE}}
+
+ > The following section in this document repeats the narrative content exactly as                     found in the [corresponding NeuroLibre Reproducible Preprint (NRP)](https://preprint.neurolibre.org/10.55458/neurolibre.00023). The content was                     automatically incorporated into this PDF using the NeuroLibre publication workflow [@Karakuzu2022-nlwf] to                     credit the referenced resources. The submitting author of the preprint has verified and approved the                     inclusion of this section through a GitHub pull request made to the [source repository](https://www.github.com/rrsg2020/note) from which this document was built.                     Please note that the figures and tables have been excluded from this (static) document. **To interactively explore such outputs and re-generate them, please visit the corresponding [NRP](https://preprint.neurolibre.org/10.55458/neurolibre.00023).**                     For more information on integrated research objects (e.g., NRPs) that bundle narrative and executable content for reproducible and transparent publications,                     please refer to @Dupre2022-iro. NeuroLibre is sponsored by the Canadian Open Neuroscience Platform (CONP) [@Harding2023-conp].
+
+
+
+# References
+
