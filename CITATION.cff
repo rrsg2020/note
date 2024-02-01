@@ -23,7 +23,7 @@ authors:
 - family-names: Doneva
   given-names: Mariya
 - family-names: Dual
-  given-names: Seraina
+  given-names: Seraina A.
   orcid: "https://orcid.org/0000-0001-6867-8270"
 - family-names: Ensworth
   given-names: Alex
@@ -146,7 +146,7 @@ preferred-citation:
   - family-names: Doneva
     given-names: Mariya
   - family-names: Dual
-    given-names: Seraina
+    given-names: Seraina A.
     orcid: "https://orcid.org/0000-0001-6867-8270"
   - family-names: Ensworth
     given-names: Alex
@@ -237,16 +237,16 @@ preferred-citation:
   - family-names: Stikov
     given-names: Nikola
     orcid: "https://orcid.org/0000-0002-8480-5230"
-  date-published: 2023-10-09
-  doi: 10.55458/neurolibre.00014
+  date-published: 2024-02-01
+  doi: 10.55458/neurolibre.00023
   journal: NeuroLibre Reproducible Preprints
   publisher:
     name: NeuroLibre
-  title: Results of the ISMRM 2020 joint Reproducible Research &
-    Quantitative MR study groups reproducibility challenge on phantom
-    and human brain T1 mapping
+  start: 23
+  title: "Paper is not enough: Crowdsourcing the T1 mapping common
+    ground via the ISMRM reproducibility challenge"
   type: preprint
-  url: "https://neurolibre.org/papers/10.55458/neurolibre.00014"
-title: Results of the ISMRM 2020 joint Reproducible Research &
-  Quantitative MR study groups reproducibility challenge on phantom and
-  human brain T`<sub>`{=html}1`</sub>`{=html} mapping
+  url: "https://neurolibre.org/papers/10.55458/neurolibre.00023"
+title: "Paper is not enough: Crowdsourcing the
+  T`<sub>`{=html}1`</sub>`{=html} mapping common ground via the ISMRM
+  reproducibility challenge"
